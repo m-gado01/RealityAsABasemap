@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#ui {
+    z-index: 10;
+    opacity: 0.7;
+}
+
+#slider {
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
