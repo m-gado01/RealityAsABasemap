@@ -12,3 +12,5 @@ function showPosition(position) {
     var coordLong = position.coords.latitude;
     console.log(coordLat, coordLong);
 }
+
+getLocation();
