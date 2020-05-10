@@ -10,7 +10,7 @@ function getLocation() {
 function showPosition(position) {
     var coordLat = position.coords.longitude;
     var coordLong = position.coords.latitude;
-    console.log(coordLat, coordLong);
+    //console.log(coordLat, coordLong);
 }
 
 getLocation();
@@ -67,7 +67,7 @@ function statechangecallback() {
         }
 
         inicall.forEach((object) => {
-            console.log(object.geometry.coordinates);
+            document.createElement();
         });
     }
 }
