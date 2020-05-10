@@ -71,3 +71,71 @@ function statechangecallback() {
         });
     }
 }
+
+/**
+ * @description This function takes the input coordinates from an oringin and a destination as arrays
+ * and calculates the distance from the origin point to that destination point
+ * @param {array} origin - the single point that is the origin to other points
+ * @param {array} dest - a single point to which the distance has to be calculated to
+ * @return {number} d - the distance
+  */
+
+var dist = function (origin, dest) {
+
+    //get coordinates of point
+    var lon1 = origin[0];
+    var lat1 = origin[1];
+    var lon2 = dest[0];
+    var lat2 = dest[1];
+
+    //degrees to radiants
+    var R = 6371e3; // metres
+    var φ1 = lat1 * (Math.PI / 180);
+    var φ2 = lat2 * (Math.PI / 180);
+    var φ3 = lon1 * (Math.PI / 180);
+    var φ4 = lon2 * (Math.PI / 180);
+    var Δφ = (lat2 - lat1) * (Math.PI / 180);
+    var Δλ = (lon2 - lon1) * (Math.PI / 180);
+
+    //calculate distances
+    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    //distance
+    var d = Math.round(R * c);
+
+    return d;
+}
+
+/**
+* @description This function takes the input coordinates from an oringin and a destination as arrays
+* and calculates the direction from the origin point to that destination point as string (e.g N/S/SE etc.)
+* @param {array} origin - the single point that is the origin to other points
+* @param {array} dest - a single point to which the direction has to be calculated to
+* @return {string} text - the direction in text format (e.g. "N"/"SE" etc.)
+*/
+
+var direc = function (origin, dest) {
+
+    //get coordinates of point
+    var lon1 = origin[0];
+    var lat1 = origin[1];
+    var lon2 = dest[0];
+    var lat2 = dest[1];
+
+    //degrees to radiants
+    var R = 6371e3; // metres
+    var φ1 = lat1 * (Math.PI / 180);
+    var φ2 = lat2 * (Math.PI / 180);
+    var φ3 = lon1 * (Math.PI / 180);
+    var φ4 = lon2 * (Math.PI / 180);
+    var Δφ = (lat2 - lat1) * (Math.PI / 180);
+    var Δλ = (lon2 - lon1) * (Math.PI / 180);
+
+    //bearing
+    var y = Math.sin((φ4 - φ3) * Math.cos(φ2));
+    var x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(φ4 - φ3);
+    var brng = Math.atan2(y, x) * 180 / Math.PI;
+}
