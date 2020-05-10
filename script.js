@@ -59,8 +59,6 @@ function statechangecallback() {
         var narr = [];
         // convert received data to JS-object
         var t = JSON.parse(x.response);
-        // convert received coordinates to JS-object
-        var pnt = JsonPoint().coordinates;
 
         // for all features in the received data  
         for (i = 0; i < t.features.length; i++) {
