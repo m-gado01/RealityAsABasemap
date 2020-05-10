@@ -66,10 +66,8 @@ function statechangecallback() {
             inicall.push(t.features[i]);
         }
 
-        inicall.forEach(object) {
+        inicall.forEach((object) => {
             console.log(object.geometry.coordinates);
-        }
+        });
     }
 }
-console.log(inicall)
-
