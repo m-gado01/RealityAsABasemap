@@ -42,7 +42,7 @@ body {
 .slider::-moz-range-thumb {
   width: 100px; /* Set a specific slider handle width */
   height: 100px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
+  background: white;
   cursor: pointer; /* Cursor on hover */
   border-radius: 50%;
 }
