@@ -21,3 +21,13 @@ body {
   transition: opacity .2s;
 }
 
+.slider::-webkit-slider-thumb {
+  width: 25px; 
+  height: 100px; 
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; 
+  height: 100px; 
+}
+
