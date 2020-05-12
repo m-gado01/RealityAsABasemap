@@ -35,3 +35,9 @@ body {
   background: white;
 }
 
+.btn {
+  border: none; 
+  color: black;
+  padding: 12px 16px; 
+  font-size: 16px; 
+}
