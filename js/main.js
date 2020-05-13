@@ -178,5 +178,5 @@ function main(places) {
 }
 
 function loadWeather() {
-    $("#datetime").text("" + Date.now());
+    $("#datetime").text(Date.now().toString());
 }
