@@ -178,5 +178,6 @@ function main(places) {
 }
 
 function loadWeather() {
-    $("#datetime").text(Date.now().toString());
+    var date = moment().locale("de");
+    $("#datetime").text(date.format("LLLL"));
 }
