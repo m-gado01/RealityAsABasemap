@@ -41,6 +41,8 @@ var dist = function (origin, dest) {
     return d;
 }
 
+
+
 AFRAME.registerComponent("clickhandler", {
     init: function () {
         this.el.addEventListener("click", () => {
