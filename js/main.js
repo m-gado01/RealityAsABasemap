@@ -1,5 +1,6 @@
 window.onload = () => {
     navigator.geolocation.getCurrentPosition(loadPlaces);
+    loadWeather();
 }
 //get current user location
 
@@ -174,6 +175,8 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
+}
 
-    $("#datetime").text("New Text");
+function loadWeather() {
+    $("#datetime").text("" + Date.now());
 }
