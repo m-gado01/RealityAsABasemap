@@ -175,5 +175,5 @@ function main(places) {
         timeout: 27000,
     }
 
-    console.log($("#datetime"));
+    $("#datetime").text("New Text");
 }
