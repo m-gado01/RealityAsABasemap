@@ -165,7 +165,7 @@ function main(places) {
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         icon.setAttribute('name', place.name);
-        icon.setAttribute('src', ' ./images/map-marker.png ');
+        icon.setAttribute('src', '../img/map-marker.png');
         icon.setAttribute('look-at', '[gps-camera]');
         icon.setAttribute('clickhandler', true);
 
