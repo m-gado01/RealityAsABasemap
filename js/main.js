@@ -180,4 +180,5 @@ function main(places) {
         timeout: 27000,
     }
 
+    $("#datetime").value = "TESTSTRING";
 }
