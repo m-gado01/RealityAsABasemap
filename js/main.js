@@ -93,8 +93,6 @@ function loadPlaces(position) {
         inicall = narr.slice(0, 5);
         // when data is loaded, activate the "Kalkulieren"-button
 
-        console.log(inicall);
-
         var places = [
             {
                 name: inicall[0][0],
@@ -134,7 +132,6 @@ function loadPlaces(position) {
                 }
 
             }];
-        console.log(places);
         main(places);
     }
 
@@ -156,7 +153,6 @@ function main(places) {
     places.forEach((place) => {
         const latitude = place.location.lat;
         const longitude = place.location.lng;
-        console.log(latitude, longitude);
 
         // add place icon
         const icon = document.createElement('a-image');
@@ -168,7 +164,6 @@ function main(places) {
 
         // for debug purposes, just show in a bigger scale
         icon.setAttribute('scale', '20, 20');
-        console.log(icon);
 
         scene.appendChild(icon);
     });
@@ -180,5 +175,5 @@ function main(places) {
         timeout: 27000,
     }
 
-    $("#datetime").value = "TESTSTRING";
+    console.log($("#datetime"));
 }
