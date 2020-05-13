@@ -1,4 +1,3 @@
-
 window.onload = () => {
     navigator.geolocation.getCurrentPosition(loadPlaces);
 }
@@ -40,8 +39,6 @@ var dist = function (origin, dest) {
 
     return d;
 }
-
-
 
 AFRAME.registerComponent("clickhandler", {
     init: function () {
