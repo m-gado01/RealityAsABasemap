@@ -209,7 +209,7 @@ function loadWeather() {
     console.log(url);
 
     $.ajax({
-        url: url,
+        url: https://tilecache.rainviewer.com/v2/radar/1589800200/512/3/52.37/4.31/2/0_0.png,
         type: "GET",
         async: true,
         success: weather_callback
