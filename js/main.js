@@ -202,11 +202,11 @@ function loadWeather() {
     var url = "https://api.openweathermap.org/data/2.5/onecall?"
         + "lat=" + lat + "&"
         + "lon=" + lon + "&"
-        + "appid=" +
+        + "appid=" + OpenWeatherMapAPI;
 
-        $.ajax({
-            url: url,
-            type: "GET",
-            success: busstops_callback
-        });
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: console.log("Success!")
+    });
 }
