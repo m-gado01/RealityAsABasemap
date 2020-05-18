@@ -1,9 +1,3 @@
 //PLACE YOUR API TOKENS HERE
 
-if (typeof exports == "undefined") {
-    var exports = window;
-}
-
-exports.token = {
-    OpenWeatherMapAPI: ""
-}
+OpenWeatherMapAPI = "f34282c4e2703d17f97388f7e5b4443b";
