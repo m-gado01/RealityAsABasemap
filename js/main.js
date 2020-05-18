@@ -193,7 +193,7 @@ function loadWeather() {
 
     $("#slider").slider({
         slide: (e, ui) => {
-            console.log(ui.value);
+            console.log("Value changed.");
         }
     });
 }
