@@ -1,7 +1,9 @@
 var position = null;
 
 window.onload = () => {
-    console.log(navigator.geolocation.getCurrentPosition());
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position)
+    });
     loadPlaces();
     loadWeather();
 }
