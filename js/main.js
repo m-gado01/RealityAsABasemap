@@ -193,7 +193,8 @@ function loadWeather() {
 
     $("#slider").on("input", () => {
         var timestamp = parseInt($("#slider").val());
-        var date = moment(timestamp).locale("de");
-        $("#datetime").text(date.format("LLLL"));
+        console.log(timestamp);
+        /* var date = moment(timestamp).locale("de");
+        $("#datetime").text(date.format("LLLL")); */
     });
 }
