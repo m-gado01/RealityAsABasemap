@@ -190,5 +190,5 @@ function loadWeather() {
     $("#slider")
         .attr("min", timestamp)
         .attr("max", timestamp + 3600 * 24)
-        .attr("step", 36000);
+        .attr("step", 3600);
 }
