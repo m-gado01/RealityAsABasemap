@@ -206,11 +206,12 @@ function loadWeather() {
         + options
         + ".png";
 
+    console.log(url);
 
     $.ajax({
         url: url,
         type: "GET",
-        async: false,
+        async: true,
         success: weather_callback
     });
 
