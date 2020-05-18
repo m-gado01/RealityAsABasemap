@@ -73,6 +73,8 @@ function loadPlaces(position) {
     */
     function busstops_callback(x) {
 
+        console.log(position);
+
         //var position = navigator.geolocation.getCurrentPosition();
         var narr = [];
 
@@ -189,7 +191,7 @@ function loadWeather() {
     var timestamp = Date.now();
     var tilesize = 512;
     var zoom = 3;
-    console.log(position);
+    //console.log(position);
 
     $.ajax({
         url: "https://tilechache.rainviewer.com/v2/radar/"
