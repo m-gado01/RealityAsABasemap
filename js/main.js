@@ -187,7 +187,5 @@ function loadWeather() {
     $("#datetime").text(date.format("LLLL"));
 
     var timestamp = Date.now();
-    $("#slider").addEventListener((e) => {
-        console.log(e);
-    });
+    console.log($("#slider"));
 }
