@@ -1,12 +1,14 @@
-var position = null;
+var position, scene = null;
 
-window.onload = () => {
+$(document).ready(() => {
     navigator.geolocation.getCurrentPosition((x) => {
         position = x;
+        scene = document.querySelector('a-scene');
         loadPlaces();
         loadWeather();
     });
-}
+});
+
 //get current user location
 
 /**
@@ -142,15 +144,11 @@ function loadPlaces() {
 
 }
 
-
-
 function main(places) {
     //places = loadPlaces();
     //var places = loadPlaces();
     //.then((places) => {
     // get scene
-    var scene = document.querySelector('a-scene');
-
 
     //return navigator.geolocation.getCurrentPosition(function (position) { //get current user location
 
