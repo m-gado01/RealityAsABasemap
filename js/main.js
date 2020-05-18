@@ -181,7 +181,7 @@ function loadWeather() {
     var date = moment().locale("de");
     $("#datetime").text(date.format("LLLL"));
 
-    var timestamp = moment();
+    var timestamp = Date.now();
     console.log(timestamp);
 
     $.ajax({
