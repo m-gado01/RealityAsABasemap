@@ -58,7 +58,6 @@ function loadPlaces() {
     $.ajax({
         url: "https://rest.busradar.conterra.de/prod/haltestellen",
         type: "GET",
-        async: false,
         success: busstops_callback
     });
 
