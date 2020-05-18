@@ -3,9 +3,9 @@ var position = null;
 window.onload = () => {
     navigator.geolocation.getCurrentPosition((x) => {
         position = x;
+        loadPlaces();
+        loadWeather();
     });
-    loadPlaces();
-    loadWeather();
 }
 //get current user location
 
