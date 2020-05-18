@@ -192,8 +192,10 @@ function loadWeather() {
         .attr("step", 3600);
 
     $("#slider").slider({
-        slide: (e, ui) => {
-            console.log("Value changed.");
-        }
+        change: changeSlider
     });
+
+    function changeSlider() {
+        console.log("Value changed");
+    }
 }
