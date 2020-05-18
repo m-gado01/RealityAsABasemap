@@ -187,5 +187,11 @@ function loadWeather() {
     $("#datetime").text(date.format("LLLL"));
 
     var timestamp = Date.now();
-    console.log($("#slider").min);
+    $("#slider").slider({
+        min: timestamp,
+        max: timestamp + 3600 * 24,
+        value: timestamp
+    }).addEventListener((e) => {
+        console.log(e);
+    });
 }
