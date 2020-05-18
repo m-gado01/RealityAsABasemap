@@ -1,8 +1,8 @@
 var position = null;
 
 window.onload = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
+    navigator.geolocation.getCurrentPosition((x) => {
+        position = x;
     });
     loadPlaces();
     loadWeather();
@@ -189,6 +189,7 @@ function loadWeather() {
     var timestamp = Date.now();
     var tilesize = 512;
     var zoom = 3;
+    console.log(position);
 
     $.ajax({
         url: "https://tilechache.rainviewer.com/v2/radar/"
