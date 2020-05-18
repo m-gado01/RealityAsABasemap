@@ -204,7 +204,7 @@ function loadWeather() {
         + "lon=" + lon + "&"
         + "appid=" + "";
 
-    console.log(process.env);
+    console.log(OpenWeatherMapAPI_Key);
 
     /* $.ajax({
         url: url,
