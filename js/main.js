@@ -1,5 +1,8 @@
+var position = null;
+
 window.onload = () => {
-    navigator.geolocation.getCurrentPosition(loadPlaces);
+    console.log(navigator.geolocation.getCurrentPosition());
+    loadPlaces();
     loadWeather();
 }
 //get current user location
@@ -182,12 +185,25 @@ function loadWeather() {
     $("#datetime").text(date.format("LLLL"));
 
     var timestamp = Date.now();
-    console.log(timestamp);
+    var tilesize = 512;
+    var zoom = 3;
 
     $.ajax({
-        url: "https://tilechache.rainviewer.com/v2/radar/",
+        url: "https://tilechache.rainviewer.com/v2/radar/"
+            + timestamp + "/"
+            + tilesize + "/"
+            + zoom + "/"
+            + latitude + "/"
+            + longitude + "/"
+            + color + "/"
+            + options
+            + ".png",
         type: "GET",
         async: false,
-        success: busstops_callback
+        success: weather_callback
     });
+
+    function weather_callback(data) {
+        console.log(data);
+    }
 }
