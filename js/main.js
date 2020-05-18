@@ -202,7 +202,7 @@ function loadWeather() {
     var url = "https://api.openweathermap.org/data/2.5/onecall?"
         + "lat=" + lat + "&"
         + "lon=" + lon + "&"
-        + "appid=" + OpenWeatherMapAPI;
+        + "appid=" + token.OpenWeatherMapAPI;
 
     $.ajax({
         url: url,
