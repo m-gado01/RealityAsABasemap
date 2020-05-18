@@ -208,6 +208,8 @@ function loadWeather() {
         success: (data) => {
             const weather = data.current.weather[0];
 
+            console.log(weather.icon);
+
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lon}`);
             icon.setAttribute('name', weather.description);
