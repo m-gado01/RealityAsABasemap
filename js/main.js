@@ -54,7 +54,7 @@ AFRAME.registerComponent("clickhandler", {
     }
 });
 
-function loadPlaces(position) {
+function loadPlaces() {
     $.ajax({
         url: "https://rest.busradar.conterra.de/prod/haltestellen",
         type: "GET",
