@@ -179,8 +179,10 @@ function main(places) {
 
 function loadWeather() {
     var date = moment().locale("de");
-    console.log(date);
     $("#datetime").text(date.format("LLLL"));
+
+    var timestamp = moment();
+    console.log(timestamp);
 
     $.ajax({
         url: "https://tilechache.rainviewer.com/v2/radar/",
