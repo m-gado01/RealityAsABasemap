@@ -204,9 +204,11 @@ function loadWeather() {
         + "lon=" + lon + "&"
         + "appid=" + token.OpenWeatherMapAPI;
 
-    $.ajax({
+    console.log(OpenWeatherMapAPI);
+
+    /* $.ajax({
         url: url,
         type: "GET",
         success: console.log("Success!")
-    });
+    }); */
 }
