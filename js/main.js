@@ -192,9 +192,8 @@ function loadWeather() {
         .attr("step", 3600);
 
     $("#slider").on("input", () => {
-        var timestamp = $("#slider").val();
-        console.log(Date.now());
-        //var date = moment(timestamp).locale("de");
-        //$("#datetime").text(date.format("LLLL"));
+        var timestamp = parseInt($("#slider").val());
+        var date = moment(timestamp).locale("de");
+        $("#datetime").text(date.format("LLLL"));
     });
 }
