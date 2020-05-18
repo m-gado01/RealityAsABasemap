@@ -196,4 +196,17 @@ function loadWeather() {
         var date = moment(timestamp).locale("de");
         $("#datetime").text(date.format("LLLL"));
     });
+
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    var url = "https://api.openweathermap.org/data/2.5/onecall?"
+        + "lat=" + lat + "&"
+        + "lon=" + lon + "&"
+        + "appid=" +
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: busstops_callback
+        });
 }
