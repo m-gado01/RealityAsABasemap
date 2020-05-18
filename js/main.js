@@ -207,13 +207,12 @@ function loadWeather() {
         type: "GET",
         success: (data) => {
             const weather = data.current.weather[0];
-
-            console.log(weather.icon);
+            const iconurl = "https://openweathermap.org/img/wn/" + weather.icon + "@2x.png";
 
             const icon = document.createElement('a-image');
             icon.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lon}`);
             icon.setAttribute('name', weather.description);
-            icon.setAttribute('src', `https://openweathermap.org/img/wn/ ${weather.icon} @2x.png`);
+            icon.setAttribute('src', iconurl);
             icon.setAttribute('look-at', '[gps-camera]');
             icon.setAttribute('clickhandler', true);
             icon.setAttribute('scale', '20, 20');
