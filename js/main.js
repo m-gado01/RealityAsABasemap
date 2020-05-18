@@ -194,8 +194,4 @@ function loadWeather() {
     $("#slider").oninput = () => {
         console.log(this.value);
     };
-
-    function changeSlider() {
-        console.log("Value changed");
-    }
 }
