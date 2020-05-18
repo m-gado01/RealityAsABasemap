@@ -188,13 +188,12 @@ function loadWeather() {
     var timestamp = Date.now();
     $("#slider")
         .attr("min", timestamp)
-        .attr("max", timestamp + 3600 * 24)
+        .attr("max", timestamp + 60 * 60 * 60 * 24)
         .attr("step", 3600);
 
     $("#slider").on("input", () => {
         var timestamp = parseInt($("#slider").val());
-        console.log(timestamp);
-        /* var date = moment(timestamp).locale("de");
-        $("#datetime").text(date.format("LLLL")); */
+        var date = moment(timestamp).locale("de");
+        $("#datetime").text(date.format("LLLL"));
     });
 }
