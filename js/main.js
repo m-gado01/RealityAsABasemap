@@ -192,6 +192,6 @@ function loadWeather() {
         .attr("step", 3600);
 
     $("#slider").on("input", () => {
-        console.log(this.val());
+        console.log($("#slider").val());
     });
 }
