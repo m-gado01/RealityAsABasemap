@@ -7,5 +7,3 @@ if (typeof exports == "undefined") {
 exports.token = {
     OpenWeatherMapAPI: ""
 }
-
-//balbksaldanlsd
