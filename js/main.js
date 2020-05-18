@@ -188,7 +188,7 @@ function loadWeather() {
     var timestamp = Date.now();
     $("#slider")
         .attr("min", timestamp)
-        .attr("max", timestamp + 60 * 60 * 60 * 60 * 24)
+        .attr("max", timestamp + 1000 * 60 * 60 * 24)
         .attr("step", 3600);
 
     $("#slider").on("input", () => {
