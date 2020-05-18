@@ -191,7 +191,7 @@ function loadWeather() {
         .attr("max", timestamp + 3600 * 24)
         .attr("step", 3600);
 
-    $("#slider").addEventListener("onchange", (e) => {
+    $("#slider").change((e) => {
         console.log("Slider wurde geändert.");
     });
 }
