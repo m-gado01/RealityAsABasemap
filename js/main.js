@@ -73,8 +73,6 @@ function loadPlaces() {
     */
     function busstops_callback(x) {
 
-        console.log(position);
-
         //var position = navigator.geolocation.getCurrentPosition();
         var narr = [];
 
