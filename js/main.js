@@ -202,13 +202,15 @@ function loadWeather() {
     var url = "https://api.openweathermap.org/data/2.5/onecall?"
         + "lat=" + lat + "&"
         + "lon=" + lon + "&"
-        + "appid=" + "";
+        + "appid=" + OpenWeatherMapAPI_Key;
 
-    console.log(OpenWeatherMapAPI_Key);
+    console.log(url);
 
-    /* $.ajax({
+    $.ajax({
         url: url,
         type: "GET",
-        success: console.log("Success!")
-    }); */
+        success: (data) => {
+            console.log(data);
+        }
+    });
 }
