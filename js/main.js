@@ -179,5 +179,13 @@ function main(places) {
 
 function loadWeather() {
     var date = moment().locale("de");
+    console.log(date);
     $("#datetime").text(date.format("LLLL"));
+
+    $.ajax({
+        url: "https://tilechache.rainviewer.com/v2/radar/",
+        type: "GET",
+        async: false,
+        success: busstops_callback
+    });
 }
