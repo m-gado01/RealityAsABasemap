@@ -187,33 +187,5 @@ function loadWeather() {
     $("#datetime").text(date.format("LLLL"));
 
     var timestamp = Date.now();
-    var tilesize = 512;
-    var zoom = 3;
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    var color = 2;
-    var options = "0_1";
-
-    var url = "https://tilechache.rainviewer.com/v2/radar/"
-        + timestamp + "/"
-        + tilesize + "/"
-        + zoom + "/"
-        + latitude + "/"
-        + longitude + "/"
-        + color + "/"
-        + options
-        + ".png";
-
-    console.log(url);
-
-    $.ajax({
-        url: "https://tilecache.rainviewer.com/v2/radar/1589800200/512/3/52.37/4.31/2/0_0.png",
-        type: "GET",
-        async: true,
-        success: weather_callback
-    });
-
-    function weather_callback(data) {
-        console.log(data);
-    }
+    console.log($("#slider"));
 }
