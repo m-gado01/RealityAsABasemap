@@ -193,7 +193,7 @@ function loadWeather() {
 
     $("#slider").on("input", () => {
         var timestamp = $("#slider").val();
-        console.log(timestamp);
+        console.log(Date.now());
         //var date = moment(timestamp).locale("de");
         //$("#datetime").text(date.format("LLLL"));
     });
