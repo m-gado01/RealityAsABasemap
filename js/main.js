@@ -215,7 +215,7 @@ function loadWeather() {
             icon.setAttribute('src', iconurl);
             icon.setAttribute('look-at', '[gps-camera]');
             icon.setAttribute('clickhandler', true);
-            icon.setAttribute('position', '0 0 100');
+            icon.setAttribute('position', '100 0 100');
             icon.setAttribute('scale', '5, 5');
 
             scene.appendChild(icon);
