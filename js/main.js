@@ -255,7 +255,7 @@ function main(places) {
 
         // for debug purposes, just show in a bigger scale
         icon.setAttribute('scale', '20, 20');
-        //console.log(icon);
+        console.log(icon);
 
         scene.appendChild(icon);
     });
@@ -303,8 +303,8 @@ function loadWeather() {
             icon2.setAttribute('name', weather.description);
             icon2.setAttribute('src', iconurl);
             icon2.setAttribute('look-at', '[gps-camera]');
-            icon2.setAttribute('scale', '500, 500');
-            icon2.setAttribute('position', '0 1500 0');
+            icon2.setAttribute('scale', '200, 200');
+            icon2.setAttribute('position', '0 1000 0');
 
             scene.appendChild(icon2);
         }
