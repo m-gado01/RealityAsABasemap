@@ -138,7 +138,6 @@ function loadPlaces() {
             }];
         main(places);
     }
-
 }
 
 function main(places) {
@@ -213,18 +212,15 @@ function loadWeather() {
             icon.setAttribute('look-at', '[gps-camera]');
             icon.setAttribute('clickhandler', true);
             icon.setAttribute('scale', '50, 50');
-            icon.setAttribute('position', '5000 1000 5000');
+            icon.setAttribute('position', '0 1000 0');
 
             scene.appendChild(icon);
         }
     });
-
-
-    AFRAME.registerComponent("clickhandler", {
-        init: function () {
-            this.el.addEventListener("click", () => {
-                alert(this.el.getAttribute('name'));
-            });
-        }
-    });
 }
+
+AFRAME.registerComponent('clickhandler', {
+    init: function () {
+        console.log('Hello, World!');
+    }
+});
