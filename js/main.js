@@ -8,10 +8,10 @@ $(document).ready(() => {
     });
 });
 
-/* $(document).on({
+$(document).on({
     ajaxStart: function () { $("body").addClass("loading"); },
     ajaxStop: function () { $("body").removeClass("loading"); }
-}); */
+});
 
 //get current user location
 
