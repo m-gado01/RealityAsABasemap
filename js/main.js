@@ -4,7 +4,7 @@ $(document).ready(() => {
     navigator.geolocation.getCurrentPosition((x) => {
         position = x;
         scene = document.querySelector('a-scene');
-        loadPlaces();
+        judith();
         loadWeather();
     });
 });
@@ -14,51 +14,44 @@ $(document).on({
     ajaxStop: function () { $("body").removeClass("loading"); }
 });
 
-//get current user location
+function judith() {
 
-/**
- * @description This function takes the input coordinates from an oringin and a destination as arrays
- * and calculates the distance from the origin point to that destination point
- * @param {array} origin - the single point that is the origin to other points
- * @param {array} dest - a single point to which the distance has to be calculated to
- * @return {number} d - the distance
-  */
+    /**
+     * @description This function takes the input coordinates from an oringin and a destination as arrays
+     * and calculates the distance from the origin point to that destination point
+     * @param {array} origin - the single point that is the origin to other points
+     * @param {array} dest - a single point to which the distance has to be calculated to
+     * @return {number} d - the distance
+      */
 
-var dist = function (origin, dest) {
+    var dist = function (origin, dest) {
 
-    //get coordinates of point
-    var lon1 = origin[0];
-    var lat1 = origin[1];
-    var lon2 = dest[0];
-    var lat2 = dest[1];
+        //get coordinates of point
+        var lon1 = origin[0];
+        var lat1 = origin[1];
+        var lon2 = dest[0];
+        var lat2 = dest[1];
 
-    //degrees to radiants
-    var R = 6371e3; // metres
-    var φ1 = lat1 * (Math.PI / 180);
-    var φ2 = lat2 * (Math.PI / 180);
-    var φ3 = lon1 * (Math.PI / 180);
-    var φ4 = lon2 * (Math.PI / 180);
-    var Δφ = (lat2 - lat1) * (Math.PI / 180);
-    var Δλ = (lon2 - lon1) * (Math.PI / 180);
+        //degrees to radiants
+        var R = 6371e3; // metres
+        var φ1 = lat1 * (Math.PI / 180);
+        var φ2 = lat2 * (Math.PI / 180);
+        var φ3 = lon1 * (Math.PI / 180);
+        var φ4 = lon2 * (Math.PI / 180);
+        var Δφ = (lat2 - lat1) * (Math.PI / 180);
+        var Δλ = (lon2 - lon1) * (Math.PI / 180);
 
-    //calculate distances
-    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        //calculate distances
+        var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    //distance
-    var d = Math.round(R * c);
+        //distance
+        var d = Math.round(R * c);
 
-    return d;
-}
-
-function loadPlaces() {
-    $.ajax({
-        url: "https://rest.busradar.conterra.de/prod/haltestellen",
-        type: "GET",
-        success: busstops_callback
-    });
+        return d;
+    }
 
     AFRAME.registerComponent("clickhandler", {
         init: function () {
@@ -290,17 +283,6 @@ function loadPlaces() {
             timeout: 27000,
         }
     }
-    /*
-    document.querySelector('a-image').addEventListener('click', function (evt) {
-      alert('This 2D element was clicked!');
-    });*/
-    AFRAME.registerComponent("clickhandler", {
-        init: function () {
-            this.el.addEventListener("click", () => {
-                alert(this.el.getAttribute('name'));
-            });
-        }
-    });
 }
 
 function loadWeather() {
