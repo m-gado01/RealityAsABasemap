@@ -55,6 +55,7 @@ var dist = function (origin, dest) {
 
 AFRAME.registerComponent("clickhandler", {
     init: function () {
+        console.log(this);
         this.el.addEventListener("click", () => {
             //alert(this.el.getAttribute('name', 'distance'));
             //), (this.el.getAttribute('distance')));
