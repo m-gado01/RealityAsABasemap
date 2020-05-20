@@ -1,22 +1,3 @@
-AFRAME.registerComponent("clickhandler", {
-    init: function () {
-        this.el.addEventListener("click", () => {
-            //alert(this.el.getAttribute('name', 'distance'));
-            //), (this.el.getAttribute('distance')));
-
-            var msg = (
-                ("name: " + (this.el.getAttribute('name'))) +
-                ("distance: " + (this.el.getAttribute('distance')))
-                //("buslines: " + (this.el.getAttribute('buslines'))) 
-            );
-            console.log(msg);
-            alert(msg);
-            //alert(this.el.getAttribute("name: "+'name'))//&vbcrlf&"distance:"+'distance'&vbcrlf&"next buslines:"+'buslines'));
-            //alert(this.el.getAttribute('name'));
-        });
-    }
-});
-
 var position, scene = null;
 
 $(document).ready(() => {
@@ -24,7 +5,7 @@ $(document).ready(() => {
         position = x;
         scene = document.querySelector('a-scene');
         loadPlaces();
-        //loadWeather();
+        loadWeather();
     });
 });
 
@@ -140,6 +121,25 @@ function loadPlaces() {
         lines(inicall);
         //busstops(inicall)
     }
+
+    AFRAME.registerComponent("clickhandler", {
+        init: function () {
+            this.el.addEventListener("click", () => {
+                //alert(this.el.getAttribute('name', 'distance'));
+                //), (this.el.getAttribute('distance')));
+
+                var msg = (
+                    ("name: " + (this.el.getAttribute('name'))) +
+                    ("distance: " + (this.el.getAttribute('distance')))
+                    //("buslines: " + (this.el.getAttribute('buslines'))) 
+                );
+                console.log(msg);
+                alert(msg);
+                //alert(this.el.getAttribute("name: "+'name'))//&vbcrlf&"distance:"+'distance'&vbcrlf&"next buslines:"+'buslines'));
+                //alert(this.el.getAttribute('name'));
+            });
+        }
+    });
 }
 
 function lines(buslines) {
@@ -306,7 +306,6 @@ function loadWeather() {
             icon.setAttribute('name', weather.description);
             icon.setAttribute('src', iconurl);
             icon.setAttribute('look-at', '[gps-camera]');
-            icon.setAttribute('clickhander', true);
             icon.setAttribute('scale', '50, 50');
             icon.setAttribute('position', '0 1000 0');
 
