@@ -265,7 +265,7 @@ function judith() {
             icon.setAttribute('name', place.name);
             icon.setAttribute('distance', place.distance);
             icon.setAttribute('buslines', place.buslines);
-            icon.setAttribute('src', ' ./Bushaltestelle_img.png ');
+            icon.setAttribute('src', './img/busstop.png');
             icon.setAttribute('look-at', '[gps-camera]');
             icon.setAttribute('clickhandler', true);
 
