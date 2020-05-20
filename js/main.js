@@ -177,8 +177,7 @@ function main(places) {
     AFRAME.registerComponent('clickable', {
         init: function () {
             this.el.addEventListener("click", () => {
-                alert("I have been clicked!");
-
+                alert(this.el.getAttribute('name'))
             });
         }
     });
