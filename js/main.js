@@ -69,7 +69,7 @@ function getStops(x) {
     }
 }
 
-function loadPlaces(position) {
+function loadPlaces() {
     $.ajax({
         url: "https://rest.busradar.conterra.de/prod/haltestellen",
         type: "GET",
@@ -87,7 +87,6 @@ function loadPlaces(position) {
     * in an array.
     */
     function busstops_callback(x) {
-        console.log(x);
         //var position = navigator.geolocation.getCurrentPosition();
         var narr = [];
         //console.log(User_loc);
