@@ -173,6 +173,15 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
+
+    AFRAME.registerComponent('clickable', {
+        init: function () {
+            this.el.addEventListener("click", () => {
+                alert("I have been clicked!");
+
+            });
+        }
+    });
 }
 
 function loadWeather() {
@@ -218,12 +227,3 @@ function loadWeather() {
         }
     });
 }
-
-AFRAME.registerComponent('clickable', {
-    init: function () {
-        this.el.addEventListener("click", () => {
-            alert("I have been clicked!");
-
-        });
-    }
-});
