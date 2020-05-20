@@ -159,7 +159,7 @@ function main(places) {
         icon.setAttribute('name', place.name);
         icon.setAttribute('src', '../img/map-marker.png');
         icon.setAttribute('look-at', '[gps-camera]');
-        icon.setAttribute('clickhandler', true);
+        icon.setAttribute('clickable', true);
 
         // for debug purposes, just show in a bigger scale
         icon.setAttribute('scale', '20, 20');
@@ -210,7 +210,7 @@ function loadWeather() {
             icon.setAttribute('name', weather.description);
             icon.setAttribute('src', iconurl);
             icon.setAttribute('look-at', '[gps-camera]');
-            icon.setAttribute('clickhandler', true);
+            icon.setAttribute('clickhander', true);
             icon.setAttribute('scale', '50, 50');
             icon.setAttribute('position', '0 1000 0');
 
@@ -219,9 +219,9 @@ function loadWeather() {
     });
 }
 
-AFRAME.registerComponent('clickhandler', {
+AFRAME.registerComponent('clickable', {
     init: function () {
-        this.addEventListener("click", () => {
+        this.el.addEventListener("click", () => {
             alert("I have been clicked!");
 
         });
