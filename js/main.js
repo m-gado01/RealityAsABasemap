@@ -221,6 +221,6 @@ function loadWeather() {
 
 AFRAME.registerComponent('clickhandler', {
     init: function () {
-        console.log('Hello, World!');
+        console.log(this());
     }
 });
