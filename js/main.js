@@ -174,10 +174,10 @@ function main(places) {
         timeout: 27000,
     }
 
-    AFRAME.registerComponent('clickhandler', {
+    AFRAME.registerComponent("clickhandler", {
         init: function () {
             this.el.addEventListener("click", () => {
-                alert(this.el.getAttribute('name'))
+                alert(this.el.getAttribute('name'));
             });
         }
     });
