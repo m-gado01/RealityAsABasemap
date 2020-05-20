@@ -159,7 +159,7 @@ function main(places) {
         icon.setAttribute('name', place.name);
         icon.setAttribute('src', '../img/map-marker.png');
         icon.setAttribute('look-at', '[gps-camera]');
-        icon.setAttribute('clickable', true);
+        icon.setAttribute('clickhandler', true);
 
         // for debug purposes, just show in a bigger scale
         icon.setAttribute('scale', '20, 20');
@@ -174,7 +174,7 @@ function main(places) {
         timeout: 27000,
     }
 
-    AFRAME.registerComponent('clickable', {
+    AFRAME.registerComponent('clickhandler', {
         init: function () {
             this.el.addEventListener("click", () => {
                 alert(this.el.getAttribute('name'))
