@@ -53,10 +53,27 @@ var dist = function (origin, dest) {
     return d;
 }
 
-function loadPlaces() {
+function busstops(id, sekunden) {
+    $.ajax({
+        url: "https://rest.busradar.conterra.de/prod/haltestellen" + "/" + id + "/abfahrten?sekunden=" + sekunden,
+        success: getStops
+    })
+}
+
+function getStops(x) {
+    var arr = [];
+    for (i = 0; i < x.length; i++) {
+        arr.push(x[i].linienid);
+        console.log(arr);
+        return arr;
+    }
+}
+
+function loadPlaces(position) {
     $.ajax({
         url: "https://rest.busradar.conterra.de/prod/haltestellen",
         type: "GET",
+        async: false,
         success: busstops_callback
     });
 
@@ -70,21 +87,27 @@ function loadPlaces() {
     * in an array.
     */
     function busstops_callback(x) {
-
+        console.log(x);
         //var position = navigator.geolocation.getCurrentPosition();
         var narr = [];
-
+        //console.log(User_loc);
         for (i = 0; i < x.features.length; i++) {
             // get name of busstop
             var lagebez = x.features[i].properties.lbez;
+            //get id of busstop
+            var lageid = x.features[i].properties.nr;
             //get coordinates of busstop
             var coords = x.features[i].geometry.coordinates;
             //get distance of busstop
             var distance = dist([position.coords.longitude, position.coords.latitude], coords);
+            //get buslines within next 5 minutes on that busstop
+            //var buslines = busstops(lageid, 300);
             //save all the data above in a single array
-            var inarr = [lagebez, coords, distance];
+            var inarr = [lagebez, coords, distance, lageid];
             //push the array into the output array
             narr.push(inarr);
+            //console.log(narr);
+
         }
 
         // sort the busstops in descending disctance order
@@ -95,56 +118,114 @@ function loadPlaces() {
 
         // save the closest 5 busstops in the global array   
         inicall = narr.slice(0, 5);
-        // when data is loaded, activate the "Kalkulieren"-button
 
-        var places = [
-            {
-                name: inicall[0][0],
-                location: {
-                    lat: inicall[0][1][1],
-                    lng: inicall[0][1][0],
-                }
-            },
-            {
-                name: inicall[1][0],
-                location: {
-                    lat: inicall[1][1][1],
-                    lng: inicall[1][1][0],
-                }
-
-            },
-            {
-                name: inicall[2][0],
-                location: {
-                    lat: inicall[2][1][1],
-                    lng: inicall[2][1][0],
-                }
-            },
-            {
-                name: inicall[3][0],
-                location: {
-                    lat: inicall[3][1][1],
-                    lng: inicall[3][1][0],
-                }
-
-            },
-            {
-                name: inicall[4][0],
-                location: {
-                    lat: inicall[4][1][1],
-                    lng: inicall[4][1][0],
-                }
-
-            }];
-        main(places);
+        lines(inicall);
+        //busstops(inicall)
     }
 }
+
+
+
+
+function lines(buslines) {
+    //let o = inicall;
+    var w = [];
+    //console.log(busstations)
+    for (i = 0; i < buslines.length; i++) {
+        var busid = buslines[i][3];
+        let busline = buslines[i];
+
+        //console.log(busid);
+        var url = "https://rest.busradar.conterra.de/prod/haltestellen" + "/" + busid + "/abfahrten?sekunden=" + 1500;
+        fetch(url)
+            .then(function (response) {
+                //console.log(response.text);
+                return response.json();
+            })
+            .then(function (json) {
+                console.log(json.length);
+                let arr = [];
+                for (j = 0; j < json.length; j++) {
+                    arr.push(json[j].linienid);
+
+                }
+
+                busline.push(arr);
+                console.log(busline);
+
+            })
+            .catch(function (error) {
+                console.log("Fehler");
+            })
+        w.push(busline);
+
+    }
+    console.log(w);
+
+    var places = [
+        {
+            name: w[0][0],
+            distance: w[0][2],
+            buslines: w[0][4],
+            location: {
+                lat: w[0][1][1],
+                lng: w[0][1][0],
+            }
+        },
+        {
+            name: w[1][0],
+            distance: w[1][2],
+            buslines: w[1][4],
+            location: {
+                lat: w[1][1][1],
+                lng: w[1][1][0],
+            }
+
+        },
+        {
+            name: w[2][0],
+            distance: w[2][2],
+            buslines: w[2][4],
+            location: {
+                lat: w[2][1][1],
+                lng: w[2][1][0],
+            }
+        },
+        {
+            name: w[3][0],
+            distance: w[3][2],
+            buslines: w[3][4],
+            location: {
+                lat: w[3][1][1],
+                lng: w[3][1][0],
+            }
+
+        },
+        {
+            name: w[4][0],
+            distance: w[4][2],
+            buslines: w[4][4],
+            location: {
+                lat: w[4][1][1],
+                lng: w[4][1][0],
+            }
+
+        }];
+    console.log(places);
+    main(places);
+}
+
+
+
+
 
 function main(places) {
     //places = loadPlaces();
     //var places = loadPlaces();
     //.then((places) => {
     // get scene
+    var scene = document.querySelector('a-scene');
+
 
     //return navigator.geolocation.getCurrentPosition(function (position) { //get current user location
 
@@ -152,17 +233,21 @@ function main(places) {
     places.forEach((place) => {
         const latitude = place.location.lat;
         const longitude = place.location.lng;
+        console.log(latitude, longitude);
 
         // add place icon
         const icon = document.createElement('a-image');
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         icon.setAttribute('name', place.name);
-        icon.setAttribute('src', '../img/map-marker.png');
+        icon.setAttribute('distance', place.distance);
+        icon.setAttribute('buslines', place.buslines);
+        icon.setAttribute('src', '../img/busstop.png');
         icon.setAttribute('look-at', '[gps-camera]');
         icon.setAttribute('clickhandler', true);
 
         // for debug purposes, just show in a bigger scale
         icon.setAttribute('scale', '20, 20');
+        console.log(icon);
 
         scene.appendChild(icon);
     });
@@ -173,14 +258,6 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
-
-    AFRAME.registerComponent("clickhandler", {
-        init: function () {
-            this.el.addEventListener("click", () => {
-                alert(this.el.getAttribute('name'));
-            });
-        }
-    });
 }
 
 function loadWeather() {
