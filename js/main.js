@@ -123,9 +123,6 @@ function loadPlaces() {
     }
 }
 
-
-
-
 function lines(buslines) {
     //let o = inicall;
     var w = [];
@@ -214,10 +211,6 @@ function lines(buslines) {
     main(places);
 }
 
-
-
-
-
 function main(places) {
     //places = loadPlaces();
     //var places = loadPlaces();
@@ -257,6 +250,25 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
+
+    AFRAME.registerComponent("clickhandler", {
+        init: function () {
+            this.el.addEventListener("click", () => {
+                //alert(this.el.getAttribute('name', 'distance'));
+                //), (this.el.getAttribute('distance')));
+
+                var msg = (
+                    ("name: " + (this.el.getAttribute('name'))) +
+                    ("distance: " + (this.el.getAttribute('distance')))
+                    //("buslines: " + (this.el.getAttribute('buslines'))) 
+                );
+                console.log(msg);
+                alert(msg);
+                //alert(this.el.getAttribute("name: "+'name'))//&vbcrlf&"distance:"+'distance'&vbcrlf&"next buslines:"+'buslines'));
+                //alert(this.el.getAttribute('name'));
+            });
+        }
+    });
 }
 
 function loadWeather() {
