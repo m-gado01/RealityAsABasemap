@@ -5,7 +5,6 @@ $(document).ready(() => {
         position = x;
         scene = document.querySelector('a-scene');
         loadPlaces();
-        loadWeather();
     });
 });
 
@@ -52,23 +51,6 @@ var dist = function (origin, dest) {
 
     return d;
 }
-
-AFRAME.registerComponent("clickhandler", {
-    init: function () {
-        this.el.addEventListener("click", () => {
-
-
-            var msg = (
-                "name: " + (this.el.getAttribute('name')) +
-                "\ndistance: " + (this.el.getAttribute('distance')) +
-                "\nbuslines: " + (this.el.getAttribute('buslines'))
-            );
-            console.log(msg);
-            alert(msg);
-
-        });
-    }
-});
 
 function busstops(id, sekunden) {
     $.ajax({
@@ -268,6 +250,23 @@ function main(places) {
         timeout: 27000,
     }
 
+    AFRAME.registerComponent("clickhandler", {
+        init: function () {
+            this.el.addEventListener("click", () => {
+
+
+                var msg = (
+                    "name: " + (this.el.getAttribute('name')) +
+                    "\ndistance: " + (this.el.getAttribute('distance')) +
+                    "\nbuslines: " + (this.el.getAttribute('buslines'))
+                );
+                console.log(msg);
+                alert(msg);
+
+            });
+        }
+    });
+
     loadWeather();
 }
 
@@ -301,15 +300,15 @@ function loadWeather() {
             const weather = data.current.weather[0];
             const iconurl = "https://openweathermap.org/img/wn/" + weather.icon + "@2x.png";
 
-            const icon = document.createElement('a-image');
-            icon.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lon}`);
-            icon.setAttribute('name', weather.description);
-            icon.setAttribute('src', iconurl);
-            icon.setAttribute('look-at', '[gps-camera]');
-            icon.setAttribute('scale', '50, 50');
-            icon.setAttribute('position', '0 1000 0');
+            const icon2 = document.createElement('a-image');
+            icon2.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lon}`);
+            icon2.setAttribute('name', weather.description);
+            icon2.setAttribute('src', iconurl);
+            icon2.setAttribute('look-at', '[gps-camera]');
+            icon2.setAttribute('scale', '50, 50');
+            icon2.setAttribute('position', '0 1000 0');
 
-            scene.appendChild(icon);
+            scene.appendChild(icon2);
         }
     });
 }
