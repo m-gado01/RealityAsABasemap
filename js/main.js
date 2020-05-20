@@ -53,14 +53,6 @@ var dist = function (origin, dest) {
     return d;
 }
 
-AFRAME.registerComponent("clickhandler", {
-    init: function () {
-        this.el.addEventListener("click", () => {
-            alert(this.el.getAttribute('name'));
-        });
-    }
-});
-
 function loadPlaces() {
     $.ajax({
         url: "https://rest.busradar.conterra.de/prod/haltestellen",
@@ -224,6 +216,15 @@ function loadWeather() {
             icon.setAttribute('position', '0 1000 0');
 
             scene.appendChild(icon);
+        }
+    });
+
+
+    AFRAME.registerComponent("clickhandler", {
+        init: function () {
+            this.el.addEventListener("click", () => {
+                alert(this.el.getAttribute('name'));
+            });
         }
     });
 }
