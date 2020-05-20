@@ -221,6 +221,9 @@ function loadWeather() {
 
 AFRAME.registerComponent('clickhandler', {
     init: function () {
-        console.log(this);
+        this.addEventListener("click", () => {
+            alert("I have been clicked!");
+
+        });
     }
 });
