@@ -303,7 +303,7 @@ function loadWeather() {
             icon2.setAttribute('name', weather.description);
             icon2.setAttribute('src', iconurl);
             icon2.setAttribute('look-at', '[gps-camera]');
-            icon2.setAttribute('scale', '50, 50');
+            icon2.setAttribute('scale', '200, 200');
             icon2.setAttribute('position', '0 1000 0');
 
             scene.appendChild(icon2);
