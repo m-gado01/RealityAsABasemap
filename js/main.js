@@ -4,7 +4,7 @@ $(document).ready(() => {
     navigator.geolocation.getCurrentPosition((x) => {
         position = x;
         scene = document.querySelector('a-scene');
-        loadPlaces();
+        loadWeather();
     });
 });
 
@@ -266,8 +266,6 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
-
-    loadWeather();
 }
 
 function loadWeather() {
@@ -311,4 +309,6 @@ function loadWeather() {
             scene.appendChild(icon2);
         }
     });
+
+    loadPlaces();
 }
