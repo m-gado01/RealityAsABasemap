@@ -52,6 +52,23 @@ var dist = function (origin, dest) {
     return d;
 }
 
+AFRAME.registerComponent("clickhandler", {
+    init: function () {
+        this.el.addEventListener("click", () => {
+
+
+            var msg = (
+                "name: " + (this.el.getAttribute('name')) +
+                "\ndistance: " + (this.el.getAttribute('distance')) +
+                "\nbuslines: " + (this.el.getAttribute('buslines'))
+            );
+            console.log(msg);
+            alert(msg);
+
+        });
+    }
+});
+
 function busstops(id, sekunden) {
     $.ajax({
         url: "https://rest.busradar.conterra.de/prod/haltestellen" + "/" + id + "/abfahrten?sekunden=" + sekunden,
@@ -249,23 +266,6 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
-
-    AFRAME.registerComponent("clickhandler", {
-        init: function () {
-            this.el.addEventListener("click", () => {
-
-
-                var msg = (
-                    "name: " + (this.el.getAttribute('name')) +
-                    "\ndistance: " + (this.el.getAttribute('distance')) +
-                    "\nbuslines: " + (this.el.getAttribute('buslines'))
-                );
-                console.log(msg);
-                alert(msg);
-
-            });
-        }
-    });
 
     loadWeather();
 }
