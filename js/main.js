@@ -159,7 +159,7 @@ function lines(buslines) {
                 return response.json();
             })
             .then(function (json) {
-                console.log(json.length);
+                //console.log(json.length);
                 let arr = [];
                 for (j = 0; j < json.length; j++) {
                     arr.push(json[j].linienid);
@@ -167,11 +167,11 @@ function lines(buslines) {
                 }
 
                 busline.push(arr);
-                console.log(busline);
+                //console.log(busline);
 
             })
             .catch(function (error) {
-                console.log("Fehler");
+                //console.log("Fehler");
             })
         w.push(busline);
 
@@ -227,7 +227,7 @@ function lines(buslines) {
             }
 
         }];
-    console.log(places);
+    //console.log(places);
     main(places);
 }
 
@@ -245,7 +245,7 @@ function main(places) {
     places.forEach((place) => {
         const latitude = place.location.lat;
         const longitude = place.location.lng;
-        console.log(latitude, longitude);
+        //console.log(latitude, longitude);
 
         // add place icon
         const icon = document.createElement('a-image');
@@ -259,7 +259,7 @@ function main(places) {
 
         // for debug purposes, just show in a bigger scale
         icon.setAttribute('scale', '20, 20');
-        console.log(icon);
+        //console.log(icon);
 
         scene.appendChild(icon);
     });
