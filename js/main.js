@@ -1,3 +1,22 @@
+AFRAME.registerComponent("clickhandler", {
+    init: function () {
+        this.el.addEventListener("click", () => {
+            //alert(this.el.getAttribute('name', 'distance'));
+            //), (this.el.getAttribute('distance')));
+
+            var msg = (
+                ("name: " + (this.el.getAttribute('name'))) +
+                ("distance: " + (this.el.getAttribute('distance')))
+                //("buslines: " + (this.el.getAttribute('buslines'))) 
+            );
+            console.log(msg);
+            alert(msg);
+            //alert(this.el.getAttribute("name: "+'name'))//&vbcrlf&"distance:"+'distance'&vbcrlf&"next buslines:"+'buslines'));
+            //alert(this.el.getAttribute('name'));
+        });
+    }
+});
+
 var position, scene = null;
 
 $(document).ready(() => {
@@ -250,25 +269,6 @@ function main(places) {
         maximumAge: 0,
         timeout: 27000,
     }
-
-    AFRAME.registerComponent("clickhandler", {
-        init: function () {
-            this.el.addEventListener("click", () => {
-                //alert(this.el.getAttribute('name', 'distance'));
-                //), (this.el.getAttribute('distance')));
-
-                var msg = (
-                    ("name: " + (this.el.getAttribute('name'))) +
-                    ("distance: " + (this.el.getAttribute('distance')))
-                    //("buslines: " + (this.el.getAttribute('buslines'))) 
-                );
-                console.log(msg);
-                alert(msg);
-                //alert(this.el.getAttribute("name: "+'name'))//&vbcrlf&"distance:"+'distance'&vbcrlf&"next buslines:"+'buslines'));
-                //alert(this.el.getAttribute('name'));
-            });
-        }
-    });
 }
 
 function loadWeather() {
