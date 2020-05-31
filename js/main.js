@@ -1,314 +1,126 @@
-var position, scene = null;
+var coordLat = 51.963604;
+var coordLong = 7.613225;
 
-$(document).ready(() => {
-    navigator.geolocation.getCurrentPosition((x) => {
-        position = x;
-        scene = document.querySelector('a-scene');
-        loadWeather();
-    });
-});
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
 
-$(document).on({
-    ajaxStart: function () { $("body").addClass("loading"); },
-    ajaxStop: function () { $("body").removeClass("loading"); }
-});
+    } else {
+        document.getElementbyId("geojson").value = "Geolocation is not supported by this browser.";
 
-//get current user location
-
-/**
- * @description This function takes the input coordinates from an oringin and a destination as arrays
- * and calculates the distance from the origin point to that destination point
- * @param {array} origin - the single point that is the origin to other points
- * @param {array} dest - a single point to which the distance has to be calculated to
- * @return {number} d - the distance
-  */
-
-var dist = function (origin, dest) {
-
-    //get coordinates of point
-    var lon1 = origin[0];
-    var lat1 = origin[1];
-    var lon2 = dest[0];
-    var lat2 = dest[1];
-
-    //degrees to radiants
-    var R = 6371e3; // metres
-    var φ1 = lat1 * (Math.PI / 180);
-    var φ2 = lat2 * (Math.PI / 180);
-    var φ3 = lon1 * (Math.PI / 180);
-    var φ4 = lon2 * (Math.PI / 180);
-    var Δφ = (lat2 - lat1) * (Math.PI / 180);
-    var Δλ = (lon2 - lon1) * (Math.PI / 180);
-
-    //calculate distances
-    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    //distance
-    var d = Math.round(R * c);
-
-    return d;
-}
-
-AFRAME.registerComponent("clickhandler", {
-    init: function () {
-        this.el.addEventListener("click", () => {
-
-
-            var msg = (
-                "name: " + (this.el.getAttribute('name')) +
-                "\ndistance: " + (this.el.getAttribute('distance')) +
-                "\nbuslines: " + (this.el.getAttribute('buslines'))
-            );
-            console.log(msg);
-            alert(msg);
-
-        });
-    }
-});
-
-function busstops(id, sekunden) {
-    $.ajax({
-        url: "https://rest.busradar.conterra.de/prod/haltestellen" + "/" + id + "/abfahrten?sekunden=" + sekunden,
-        success: getStops
-    })
-}
-
-function getStops(x) {
-    var arr = [];
-    for (i = 0; i < x.length; i++) {
-        arr.push(x[i].linienid);
-        console.log(arr);
-        return arr;
     }
 }
 
-function loadPlaces() {
-    $.ajax({
-        url: "https://rest.busradar.conterra.de/prod/haltestellen",
-        type: "GET",
-        async: false,
-        success: busstops_callback
-    });
+function showPosition(position) {
+    coordLat = position.coords.longitude;
+    coordLong = position.coords.latitude;
+    requestWeatherData(coordLat, coordLong);
 
+}
+getLocation();
+var request = new XMLHttpRequest();
+function requestWeatherData(lat, lon) {
+    var APIKey = "9e55039796c9a5f733b4100a7273622d";
+    // api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={your api key}
+    // https://api.openweathermap.org/data/2.5/weather?lat=51.9541&lon=7.6210&appid=9e55039796c9a5f733b4100a7273622d
 
-    var inicall = [];
+    var apicall = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+    var weather = weatherData(apicall);
+    console.log(weather);
+    console.log(weather.weather);
+    console.log(weather.weather[0].description);
+    //document.getElementById('output').value= weather.weather[0].description;
+    //console.log(document.getElementById('output').value);
+    var weatherText = document.querySelector('a-text');
+    //console.log(weatherText.value);
+    weatherText.setAttribute('value', weather.weather[0].description);
+    console.log(weatherText);
+}
 
+function weatherData(apicall) {
+    request.open('GET', apicall, false);
+    request.onload = function () {
+        var data = JSON.parse(this.response);
+    }
+    //{"coord":{"lon":7.62,"lat":51.95},"weather":[{"id":521,"main":"Rain","description":"shower rain","icon":"09d"}],"base":"stations","main":{"temp":285.15,"feels_like":280.09,"temp_min":283.15,"temp_max":287.04,"pressure":1000,"humidity":71},"visibility":10000,"wind":{"speed":6.2,"deg":300},"clouds":{"all":40},"dt":1588347256,"sys":{"type":1,"id":1269,"country":"DE","sunrise":1588305552,"sunset":1588359227},"timezone":7200,"id":2867543,"name":"Münster","cod":200}
+    //weather.description
+    //main.temp in celsius
+    request.send(null);
+    return JSON.parse(request.responseText);
+}
 
-    /**
-    * @description This function is the callback function of the URL that gets the users closest
-    * 5 busstops in Muenster, including their distance and their direction and saves all these informations
-    * in an array.
-    */
-    function busstops_callback(x) {
-        //var position = navigator.geolocation.getCurrentPosition();
-        var narr = [];
-        //console.log(User_loc);
-        for (i = 0; i < x.features.length; i++) {
-            // get name of busstop
-            var lagebez = x.features[i].properties.lbez;
-            //get id of busstop
-            var lageid = x.features[i].properties.nr;
-            //get coordinates of busstop
-            var coords = x.features[i].geometry.coordinates;
-            //get distance of busstop
-            var distance = dist([position.coords.longitude, position.coords.latitude], coords);
-            //get buslines within next 5 minutes on that busstop
-            //var buslines = busstops(lageid, 300);
-            //save all the data above in a single array
-            var inarr = [lagebez, coords, distance, lageid];
-            //push the array into the output array
-            narr.push(inarr);
-            //console.log(narr);
+var map = L.map('map')
+mapLink =
+    '<a href="http://www.esri.com/">Esri</a>';
+wholink =
+    'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+L.tileLayer(
+    'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '&copy; ' + mapLink + ', ' + wholink,
+    maxZoom: 20,
+}).addTo(map);
+console.log(map);
+var current_position;
+var lat, lon;
+function onLocationFound(e) {
+    if (current_position) {
+        map.removeLayer(current_position);
+    }
+    current_position = L.marker(e.latlng).addTo(map);
+    console.log(map)
 
-        }
+    var latLngs = [current_position.getLatLng()];
+    lat = latLngs[0].lat;
+    lon = latLngs[0].lng;
+    map.panTo(new L.LatLng(lat, lon));
 
-        // sort the busstops in descending disctance order
-        narr.sort(
-            function (a, b) {
-                return a[2] - b[2];
-            });
+}
+function onLocationError(e) {
+    alert(e.message);
+}
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
 
-        // save the closest 5 busstops in the global array   
-        inicall = narr.slice(0, 5);
+// wrap map.locate in a function
+function locate() {
+    map.locate({ setView: true, maxZoom: 20 });
+}
+locate();
+// call locate every 3 seconds... forever
+setInterval(locate, 5000);
+//locate()
+L.easyButton('<img src="./crosshairs-gps.png">', function (btn, map) {
+    map.setView([lat, lon]);
+}).addTo(map);
+if (window.DeviceOrientationEvent) {
+    window.addEventListener("deviceorientation", function (event) {
+        // alpha: rotation around z-axis
+        var rotateDegrees = event.alpha;
+        // gamma: left to right
+        var leftToRight = event.gamma;
+        // beta: front back motion
+        var frontToBack = event.beta;
 
-        lines(inicall);
-        //busstops(inicall)
+        handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
+    }, true);
+}
+var handleOrientationEvent = function (frontToBack, leftToRight, rotateDegrees) {
+    if (frontToBack < 30 && frontToBack > -30) {
+        var weatherText = document.querySelector('a-text');
+        weatherText.setAttribute('value', "vertical");
+        var scene = document.querySelector('a-scene');
+        scene.setAttribute('display', "none");
+        document.getElementById("map").style.display = "flex";
+
+    }
+    else {
+        var weatherText = document.querySelector('a-text');
+        weatherText.setAttribute('value', "horizontal");
+        document.getElementById("map").style.display = "none";
+        document.getElementById("scene").style.display = "flex";
     }
 }
 
-function lines(buslines) {
-    //let o = inicall;
-    var w = [];
-    //console.log(busstations)
-    for (i = 0; i < buslines.length; i++) {
-        var busid = buslines[i][3];
-        let busline = buslines[i];
-
-        //console.log(busid);
-        var url = "https://rest.busradar.conterra.de/prod/haltestellen" + "/" + busid + "/abfahrten?sekunden=" + 1500;
-        fetch(url)
-            .then(function (response) {
-                //console.log(response.text);
-                return response.json();
-            })
-            .then(function (json) {
-                //console.log(json.length);
-                let arr = [];
-                for (j = 0; j < json.length; j++) {
-                    arr.push(json[j].linienid);
-
-                }
-
-                busline.push(arr);
-                //console.log(busline);
-
-            })
-            .catch(function (error) {
-                //console.log("Fehler");
-            })
-        w.push(busline);
-
-    }
-    console.log(w);
-
-    var places = [
-        {
-            name: w[0][0],
-            distance: w[0][2],
-            buslines: w[0][4],
-            location: {
-                lat: w[0][1][1],
-                lng: w[0][1][0],
-            }
-        },
-        {
-            name: w[1][0],
-            distance: w[1][2],
-            buslines: w[1][4],
-            location: {
-                lat: w[1][1][1],
-                lng: w[1][1][0],
-            }
-
-        },
-        {
-            name: w[2][0],
-            distance: w[2][2],
-            buslines: w[2][4],
-            location: {
-                lat: w[2][1][1],
-                lng: w[2][1][0],
-            }
-        },
-        {
-            name: w[3][0],
-            distance: w[3][2],
-            buslines: w[3][4],
-            location: {
-                lat: w[3][1][1],
-                lng: w[3][1][0],
-            }
-
-        },
-        {
-            name: w[4][0],
-            distance: w[4][2],
-            buslines: w[4][4],
-            location: {
-                lat: w[4][1][1],
-                lng: w[4][1][0],
-            }
-
-        }];
-    //console.log(places);
-    main(places);
-}
-
-function main(places) {
-    //places = loadPlaces();
-    //var places = loadPlaces();
-    //.then((places) => {
-    // get scene
-    var scene = document.querySelector('a-scene');
-
-
-    //return navigator.geolocation.getCurrentPosition(function (position) { //get current user location
-
-    // add every Busstop to the scene
-    places.forEach((place) => {
-        const latitude = place.location.lat;
-        const longitude = place.location.lng;
-        //console.log(latitude, longitude);
-
-        // add place icon
-        const icon = document.createElement('a-image');
-        icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-        icon.setAttribute('name', place.name);
-        icon.setAttribute('distance', place.distance);
-        icon.setAttribute('buslines', place.buslines);
-        icon.setAttribute('src', '../img/busstop.png');
-        icon.setAttribute('look-at', '[gps-camera]');
-        icon.setAttribute('clickhandler', true);
-
-        // for debug purposes, just show in a bigger scale
-        icon.setAttribute('scale', '20, 20');
-        console.log(icon);
-
-        scene.appendChild(icon);
-    });
-
-    (err) => console.error('Error in retrieving position', err),
-    {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 27000,
-    }
-}
-
-function loadWeather() {
-    var date = moment(Date.now()).locale("de");
-    $("#datetime").text(date.format("LLLL"));
-
-    var timestamp = Date.now();
-    $("#slider")
-        .attr("min", timestamp)
-        .attr("max", timestamp + 1000 * 60 * 60 * 24)
-        .attr("step", 3600);
-
-    $("#slider").on("input", () => {
-        var timestamp = parseInt($("#slider").val());
-        var date = moment(timestamp).locale("de");
-        $("#datetime").text(date.format("LLLL"));
-    });
-
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
-    var url = "https://api.openweathermap.org/data/2.5/onecall?"
-        + "lat=" + lat + "&"
-        + "lon=" + lon + "&"
-        + "appid=" + OpenWeatherMapAPI_Key;
-
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: (data) => {
-            const weather = data.current.weather[0];
-            const iconurl = "https://openweathermap.org/img/wn/" + weather.icon + "@2x.png";
-
-            const icon2 = document.createElement('a-image');
-            icon2.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lon}`);
-            icon2.setAttribute('name', weather.description);
-            icon2.setAttribute('src', iconurl);
-            icon2.setAttribute('look-at', '[gps-camera]');
-            icon2.setAttribute('scale', '100, 100');
-            icon2.setAttribute('position', '0 1000 0');
-
-            scene.appendChild(icon2);
-        }
-    });
-
-    loadPlaces();
+function kelvinInCelsius(kelvin) {
+    return kelvin - 273.15;
 }
