@@ -38,7 +38,7 @@ function venuesToAR(venues) {
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         icon.setAttribute('src', 'img/star-icon.png');
         icon.setAttribute('look-at', '[gps-camera]');
-        icon.setAttribute('scale', '20 20')
+        icon.setAttribute('scale', '10 10')
 
         scene.appendChild(icon);
     });
