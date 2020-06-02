@@ -14,8 +14,8 @@ function getBusstops() {
         url: conterra_url,
         data: {},
         success: function (data) {
-            var busstops = data.features;
-            busstopsToAR(busstops);
+            var busstops = filterBusstops(data.features);
+            //busstopsToAR(busstops);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -36,4 +36,8 @@ function busstopsToAR(busstops) {
 
         scene.appendChild(icon);
     });
+}
+
+function filterBusstops(busstops) {
+    console.log(busstops);
 }
