@@ -6,6 +6,6 @@ $(document).ready(() => {
         scene = $('a-scene')[0];
         initVenues(position, scene);
         initBusstops(position, scene);
-        initBuslines(position, scene);
+        //initBuslines(position, scene);
     });
 });
