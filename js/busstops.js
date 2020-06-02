@@ -24,10 +24,9 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
-    console.log(busstops);
     busstops.forEach((busstop) => {
-        var latitude = busstop.geometry.coordinates[0];
-        var longitude = busstop.geometry.coordinates[1];
+        var latitude = busstop.geometry.coordinates[1];
+        var longitude = busstop.geometry.coordinates[0];
         var icon = document.createElement('a-image');
 
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
