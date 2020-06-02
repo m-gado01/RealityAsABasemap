@@ -5,5 +5,6 @@ $(document).ready(() => {
         position = x;
         scene = $('a-scene')[0];
         initVenues(position, scene);
+        initBusstops(position, scene);
     });
 });
