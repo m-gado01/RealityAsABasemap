@@ -42,8 +42,8 @@ function filterBusstops(busstops) {
     busstops.forEach((busstop) => {
         var lat1 = position.coords.latitude;
         var lon1 = position.coords.longitude;
-        var lat2 = busstop.geometry.coordinates[0];
-        var lon2 = busstop.geometry.coordinates[1];
+        var lat2 = busstop.geometry.coordinates[1];
+        var lon2 = busstop.geometry.coordinates[0];
 
         console.log(getDistance(lat1, lon1, lat2, lon2));
     });
@@ -54,8 +54,6 @@ function getDistance(lat1, lon1, lat2, lon2) {
     var R = 6371e3; // metres
     var φ1 = lat1 * (Math.PI / 180);
     var φ2 = lat2 * (Math.PI / 180);
-    var φ3 = lon1 * (Math.PI / 180);
-    var φ4 = lon2 * (Math.PI / 180);
     var Δφ = (lat2 - lat1) * (Math.PI / 180);
     var Δλ = (lon2 - lon1) * (Math.PI / 180);
 
