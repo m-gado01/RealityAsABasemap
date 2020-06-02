@@ -35,6 +35,8 @@ function busstopsToAR(busstops) {
         icon.setAttribute('scale', '20 20')
 
         scene.appendChild(icon);
+
+        getBuslines(busstop);
     });
 }
 
