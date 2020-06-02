@@ -31,6 +31,7 @@ function getVenues() {
 
 function venuesToAR(venues) {
     venues.forEach((venue) => {
+        console.log(venue);
         var latitude = venue.location.lat;
         var longitude = venue.location.lng;
         var icon = document.createElement('a-image');
