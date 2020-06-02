@@ -26,5 +26,7 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
-    console.log(busstops);
+    busstops.forEach((busstop) => {
+        console.log(busstop.geometry.coordinates);
+    });
 }
