@@ -15,9 +15,10 @@ function getBuslines(busstop) {
         url: conterra_url,
         data: {},
         success: function (data) {
-            var fahrtbezeichner = data[0].fahrtbezeichner;
-            console.log(data[0].fahrtbezeichner);
-            getLineString(fahrtbezeichner);
+            if (data.length > 0) {
+                var fahrtbezeichner = data[0].fahrtbezeichner;
+                getLineString(fahrtbezeichner);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
