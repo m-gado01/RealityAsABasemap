@@ -26,17 +26,22 @@ function getBuslines(busstop) {
 
 function getLineString(fahrtbezeichner) {
     var url = "https://rest.busradar.conterra.de/prod/fahrten/" + fahrtbezeichner;
-    console.log(url);
     $.ajax({
         dataType: "json",
         url: url,
         data: {},
         success: function (data) {
-            console.log(data);
+            LineStringToAR(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
         }
+    });
+}
+
+function LineStringToAR(linestring) {
+    linestring.geometry.coordinates.forEach((coordinate) => {
+        console.log(coordinate);
     });
 
 }
