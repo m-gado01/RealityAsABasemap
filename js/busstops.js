@@ -29,12 +29,10 @@ function busstopsToAR(busstops) {
         var longitude = busstop.geometry.coordinates[1];
         var icon = document.createElement('a-image');
 
-        console.log(latitude, longitude, icon);
-
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         icon.setAttribute('src', 'img/busstop.png');
         icon.setAttribute('look-at', '[gps-camera]');
-        icon.setAttribute('scale', '100 100')
+        icon.setAttribute('scale', '20 20')
 
         scene.appendChild(icon);
     });
