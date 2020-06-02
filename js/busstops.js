@@ -40,18 +40,16 @@ function busstopsToAR(busstops) {
 
 function filterBusstops(busstops) {
     busstops.forEach((busstop) => {
-        console.log(position, busstop.geometry.coordinates);
+        var lat1 = position.coords.latitude;
+        var lon1 = position.coords.longitude;
+        var lat2 = busstop.geometry.coordinates[0];
+        var lon2 = busstop.geometry.coordinates[1];
+
+        console.log(getDistance(lat1, lon1, lat2, lon2));
     });
 }
 
-function getDistance(origin, dest) {
-
-    //get coordinates of point
-    var lon1 = origin[0];
-    var lat1 = origin[1];
-    var lon2 = dest[0];
-    var lat2 = dest[1];
-
+function getDistance(lat1, lon1, lat2, lon2) {
     //degrees to radiants
     var R = 6371e3; // metres
     var φ1 = lat1 * (Math.PI / 180);
