@@ -15,10 +15,28 @@ function getBuslines(busstop) {
         url: conterra_url,
         data: {},
         success: function (data) {
+            var fahrtbezeichner = data[0].fahrtbezeichner;
+            getLineString(fahrtbezeichner);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+function getLineString(fahrtbezeichner) {
+    var url = "https://rest.busradar.conterra.de/prod/fahrten/" + fahrtbezeichner;
+
+    $.ajax({
+        dataType: "json",
+        url: url,
+        data: {},
+        success: function (data) {
             console.log(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
         }
     });
+
 }
