@@ -1,5 +1,3 @@
-console.log(lat, lon);
-
 var position, scene = null;
 
 $(document).ready(() => {
