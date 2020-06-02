@@ -41,7 +41,16 @@ function getLineString(fahrtbezeichner) {
 
 function LineStringToAR(linestring) {
     linestring.geometry.coordinates.forEach((coordinate) => {
-        console.log(coordinate);
-    });
 
-}
+        var lat1 = position.coords.latitude;
+        var lon1 = position.coords.longitude;
+        var lat2 = coordinate[1];
+        var lon2 = coordinate[0];
+
+        var z = getDistance(lat1, lon1, lat2, lon2);
+        var direct = direc(lat1, lon1, lat2, lon2);
+        var x = getX(direct);
+
+        console.log(x, z);
+    });
+};
