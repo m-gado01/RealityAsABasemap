@@ -33,7 +33,7 @@ function busstopsToAR(busstops) {
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         icon.setAttribute('src', 'img/busstop.png');
         icon.setAttribute('look-at', '[gps-camera]');
-        icon.setAttribute('scale', '10 10')
+        //icon.setAttribute('scale', '10 10')
 
         scene.appendChild(icon);
     };
