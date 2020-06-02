@@ -15,7 +15,7 @@ function getBusstops() {
         data: {},
         success: function (data) {
             var busstops = filterBusstops(data.features);
-            //busstopsToAR(busstops);
+            busstopsToAR(busstops);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -24,6 +24,7 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
+    console.log(busstops);
     busstops.forEach((busstop) => {
         var latitude = busstop.geometry.coordinates[0];
         var longitude = busstop.geometry.coordinates[1];
@@ -53,7 +54,7 @@ function filterBusstops(busstops) {
         return a.properties.distance - b.properties.distance;
     });
 
-    console.log(busstops);
+    return busstops.slice(0, 5);
 }
 
 function getDistance(lat1, lon1, lat2, lon2) {
