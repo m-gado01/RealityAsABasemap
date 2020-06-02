@@ -48,6 +48,11 @@ function filterBusstops(busstops) {
         var distance = getDistance(lat1, lon1, lat2, lon2);
         busstop.properties.distance = distance;
     });
+
+    busstops.sort((a, b) => {
+        return a.properties.distance - b.properties.distance;
+    });
+
     console.log(busstops);
 }
 
