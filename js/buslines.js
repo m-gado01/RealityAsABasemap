@@ -57,5 +57,15 @@ function LineStringToAR(linestring) {
         arr.push([x, 1, z]);
     });
 
-    console.log(arr);
+    createLine(arr);
 };
+
+function createLine(arr) {
+    var finalArr = [];
+    for (i = 0; i < arr.length; i++) {
+        var line = [("line__" + [i] + "=start: " + arr[i] + "; end:" + arr[i + 1] + "; color: red")];
+        finalArr.push(line);
+        //console.log(line)
+    }
+    console.log(finalArr);
+}
