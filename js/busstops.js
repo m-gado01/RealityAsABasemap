@@ -1,12 +1,10 @@
 var position, scene = null;
 
-$(document).ready(() => {
-    navigator.geolocation.getCurrentPosition((x) => {
-        position = x;
-        scene = $('a-scene')[0];
-        //getBusstops();
-    });
-});
+function initBusstops(p, s) {
+    position = p;
+    scene = s;
+    getBusstops();
+}
 
 function getBusstops() {
     const conterra_url = 'https://rest.busradar.conterra.de/prod/haltestellen';
