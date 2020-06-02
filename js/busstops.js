@@ -24,6 +24,7 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
+    console.log(busstops);
     for (var i = 0; i < 5; i++) {
 
         var latitude = busstops[i].geometry.coordinates[0];

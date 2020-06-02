@@ -28,6 +28,7 @@ function getVenues() {
 }
 
 function venuesToAR(venues) {
+    console.log(venues);
     venues.forEach((venue) => {
         var latitude = venue.location.lat;
         var longitude = venue.location.lng;
