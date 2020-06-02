@@ -47,8 +47,8 @@ function filterBusstops(busstops) {
 
         var distance = getDistance(lat1, lon1, lat2, lon2);
         busstop.properties.distance = distance;
-        console.log(busstop);
     });
+    console.log(busstops);
 }
 
 function getDistance(lat1, lon1, lat2, lon2) {
