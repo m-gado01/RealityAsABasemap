@@ -67,5 +67,10 @@ function createLine(arr) {
         finalArr.push(line);
         //console.log(line)
     }
-    console.log(finalArr);
+
+    drawToAR(finalArr);
+}
+
+function drawToAR(lines) {
+    console.log(lines);
 }
