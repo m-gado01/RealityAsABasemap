@@ -1,5 +1,3 @@
-getBusstops();
-
 var coordLat = 51.963604;
 var coordLong = 7.613225;
 
