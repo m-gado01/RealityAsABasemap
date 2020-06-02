@@ -16,7 +16,7 @@ function getBusstops() {
         url: conterra_url,
         data: {},
         success: function (data) {
-            console.log(data);
+            busstopsToAR(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
@@ -25,5 +25,5 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
-
+    console.log(busstops);
 }
