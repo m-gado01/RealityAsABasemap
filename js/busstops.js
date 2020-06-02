@@ -24,7 +24,7 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
-    const counter = 0;
+    var counter = 0;
     busstops.forEach((busstop) => {
         if (counter <= 50) {
 
