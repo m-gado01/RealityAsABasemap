@@ -16,7 +16,7 @@ function getBuslines(busstop) {
         data: {},
         success: function (data) {
             var fahrtbezeichner = data[0].fahrtbezeichner;
-            console.log(data);
+            console.log(data[0].fahrtbezeichner);
             getLineString(fahrtbezeichner);
         },
         error: function (jqXHR, textStatus, errorThrown) {
