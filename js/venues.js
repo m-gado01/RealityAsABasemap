@@ -1,12 +1,10 @@
 var position, scene = null;
 
-$(document).ready(() => {
-    navigator.geolocation.getCurrentPosition((x) => {
-        position = x;
-        scene = $('a-scene')[0];
-        //getVenues();
-    });
-});
+function initVenues(p, s) {
+    position = p;
+    scene = s;
+    getVenues();
+}
 
 function getVenues() {
     const foursquare_url = 'https://api.foursquare.com/v2/venues/search?' +
