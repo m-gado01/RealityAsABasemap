@@ -24,22 +24,16 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
-    var counter = 0;
     busstops.forEach((busstop) => {
-        if (counter <= 50) {
+        var latitude = busstop.geometry.coordinates[0];
+        var longitude = busstop.geometry.coordinates[1];
+        var icon = document.createElement('a-image');
 
-            var latitude = busstop.geometry.coordinates[0];
-            var longitude = busstop.geometry.coordinates[1];
-            var icon = document.createElement('a-image');
+        icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        icon.setAttribute('src', 'img/busstop.png');
+        icon.setAttribute('look-at', '[gps-camera]');
+        icon.setAttribute('scale', '20 20')
 
-            icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-            icon.setAttribute('src', 'img/busstop.png');
-            icon.setAttribute('look-at', '[gps-camera]');
-            icon.setAttribute('scale', '20 20')
-
-            scene.appendChild(icon);
-
-            counter++;
-        }
+        scene.appendChild(icon);
     });
 }
