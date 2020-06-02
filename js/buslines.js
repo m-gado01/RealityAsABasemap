@@ -61,18 +61,20 @@ function LineStringToAR(linestring) {
 };
 
 function createLine(arr) {
-    var finalArr = [];
+    var result = "";
     for (i = 0; i < arr.length; i++) {
-        var line = [("line__" + [i] + "=start: " + arr[i] + "; end:" + arr[i + 1] + "; color: red")];
-        finalArr.push(line);
-        //console.log(line)
+        var line = "line__" + [i] + "=start: " + arr[i] + "; end:" + arr[i + 1] + "; color: red";
+        result + line;
     }
 
-    drawToAR(finalArr);
+    console.log(result);
+    //drawToAR(finalArr);
 }
 
 function drawToAR(lines) {
     lines.forEach((line) => {
         console.log(line[0]);
+        var line = document.createElement('a-entity');
+        line.innerHTML = 
     })
 }
