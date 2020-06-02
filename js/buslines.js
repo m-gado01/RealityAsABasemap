@@ -51,7 +51,7 @@ function LineStringToAR(linestring) {
 
         var z = getDistance(lat1, lon1, lat2, lon2);
         var direct = direc(lat1, lon1, lat2, lon2);
-        var x = getX(direct);
+        var x = getX(direct, z);
 
         console.log(x, z);
     });

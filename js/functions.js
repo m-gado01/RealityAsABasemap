@@ -40,7 +40,7 @@ var direc = function (lat1, lon1, lat2, lon2) {
     return brng;
 }
 
-function getX(direct) {
+function getX(direct, z) {
     var x = null;
     if (direct <= 90) {
         var alpha = Math.abs(direct - 90);
