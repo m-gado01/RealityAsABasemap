@@ -72,5 +72,7 @@ function createLine(arr) {
 }
 
 function drawToAR(lines) {
-    console.log(lines);
+    lines.forEach((line) => {
+        console.log(line[0]);
+    })
 }
