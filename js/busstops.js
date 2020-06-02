@@ -24,11 +24,12 @@ function getBusstops() {
 }
 
 function busstopsToAR(busstops) {
-    for (var i = 0; i < 5; i++) {
-
-        var latitude = busstops[i].geometry.coordinates[0];
-        var longitude = busstops[i].geometry.coordinates[1];
+    busstops.forEach((busstop) => {
+        var latitude = busstop.geometry.coordinates[0];
+        var longitude = busstop.geometry.coordinates[1];
         var icon = document.createElement('a-image');
+
+        console.log(latitude, longitude, icon);
 
         icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         icon.setAttribute('src', 'img/busstop.png');
@@ -36,5 +37,5 @@ function busstopsToAR(busstops) {
         icon.setAttribute('scale', '100 100')
 
         scene.appendChild(icon);
-    };
+    });
 }
