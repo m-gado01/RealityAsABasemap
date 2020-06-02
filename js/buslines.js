@@ -63,8 +63,8 @@ function LineStringToAR(linestring) {
 function createLine(arr) {
     var result = "";
     for (i = 0; i < arr.length; i++) {
-        var line = 'line__' + [i] + '="start:' + arr[i] + '; end:' + arr[i + 1] + '; color: red"';
-        result + line;
+        var line = 'line__' + [i] + '="start:' + arr[i] + '; end:' + arr[i + 1] + '; color: red" ';
+        result.concat(line);
     }
 
     console.log(result);
