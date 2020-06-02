@@ -55,7 +55,7 @@ function LineStringToAR(linestring) {
         var x = getX(direct, z);
 
         arr.push([x, 1, z]);
-
-        console.log(arr);
     });
+
+    console.log(arr);
 };
