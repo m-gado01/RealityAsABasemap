@@ -1,7 +1,9 @@
+var position, scene = null;
+
 $(document).ready(() => {
     navigator.geolocation.getCurrentPosition((x) => {
-        var position = x;
-        var scene = $('a-scene')[0];
+        position = x;
+        scene = $('a-scene')[0];
         initBusstops(position, scene);
     });
 });
