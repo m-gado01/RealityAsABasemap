@@ -45,7 +45,9 @@ function filterBusstops(busstops) {
         var lat2 = busstop.geometry.coordinates[1];
         var lon2 = busstop.geometry.coordinates[0];
 
-        console.log(getDistance(lat1, lon1, lat2, lon2));
+        var distance = getDistance(lat1, lon1, lat2, lon2);
+        busstop.properties.distance = distance;
+        console.log(busstop);
     });
 }
 
