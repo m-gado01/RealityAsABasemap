@@ -1,11 +1,20 @@
-var position, scene = null;
 
-$(document).ready(() => {
-    navigator.geolocation.getCurrentPosition((x) => {
-        position = x;
-        scene = $('a-scene')[0];
-        initVenues(position, scene);
-        initBusstops(position, scene);
-        //initBuslines(position, scene);
-    });
+AFRAME.registerComponent('change-color-on-hover', {
+    schema: {
+        color: { default: 'red' }
+    },
+
+    init: function () {
+        var data = this.data;
+        var el = this.el;  // <a-box>
+        var defaultColor = el.getAttribute('material').color;
+
+        el.addEventListener('mouseenter', function () {
+            el.setAttribute('color', data.color);
+        });
+
+        el.addEventListener('mouseleave', function () {
+            el.setAttribute('color', defaultColor);
+        });
+    }
 });
