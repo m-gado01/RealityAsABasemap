@@ -8,7 +8,6 @@
   <!-- Embedding external scripts -->
   <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <script src="js/test.js"></script>
   <!-- AR.js -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
   <!-- A-Frame Look-At-Component -->
@@ -19,31 +18,76 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <!-- Bootstrap -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Font Awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/fontawesome.min.js"></script>
   <!-- Leaflet -->
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <!-- Leaflet EasyButton -->
   <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+  <!-- Leaflet Extra Markers -->
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.2.1/dist/js/leaflet.extra-markers.min.js"></script>
+  <!-- Popup Generator -->
+  <script src="js/popup-generator.js"></script>
+  <!-- Event Handler -->
+  <script src="js/eventhandler.js"></script>
   <!-- Embedding Stylesheets -->
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
   <!-- Leaflet EasyButton -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+  <!-- Leaflet Extra Markers -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.2.1/dist/css/leaflet.extra-markers.min.css">
   <!-- Custom stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body style="margin : 0px; overflow: hidden;">
-  <a-scene>
-    <a-box color="#EF2D5E" position="0 1 -4" change-color-on-hover="color: blue"></a-box>
+  <div class="container fixed-top justify-content-space-between" id="ui1">
+    <input type="checkbox" id="checkboxSwitchView">
 
-    <a-camera>
-      <a-cursor></a-cursor>
-    </a-camera>
-  </a-scene>
 
-  <!-- Loading custom scripts -->
+  </div>
+  <div id="mapview">
+    <div class="container fixed-bottom justify-content-center" id="ui2">
+      <button id="returnToPositionButton" onclick="map.locate({setView: true, maxZoom: 20})" type="button"><img
+          src="img/crosshairs-gps.png"></button>
+    </div>
+    <button id="settings" onclick="openNav()" type="button"><img src="img/cog-outline.png"></button>
+    <div id="myNav" class="overlay">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div class="overlay-content">
+        <a href="#">Radius</a>
+        <input type="range" id="radius" name="radius" min="0" max="100" oninput="submitRadius()">
+        <p id="showRadiusP"><span id="showRadius">50</span> m</p>
+      </div>
+    </div>
+    <div id="map"></div>
+  </div>
+  <div id="scene">
+    <a-scene vr-mode-ui="enabled: false" cursor="rayOrigin: mouse; fuse: true; fuseTimeout: 0;"
+      raycaster="objects: [clickhandler];" embedded arjs arjs="sourceType: webcam; debugUIEnabled: false;">
+      <div id="infobox" class="container fixed-top"></div>
+      <div id="dummerSlider" class="container fixed-bottom justify-content-center">
+        <!-- Range Slider -->
+        <input type="range" class="slider" id="slider"></input>
+      </div>
+      <a-camera gps-camera rotation-reader>
+        <a-cursor id="cursor"></a-cursor>
+      </a-camera>
+    </a-scene>
+  </div>
 </body>
+<script src="config/token.js"></script>
+<script src="js/leaflet-provider.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/venues.js"></script>
+<script src="js/buslines.js"></script>
+<script src="js/busstops.js"></script>
+<script src="js/main.js"></script>
 
 </html>
