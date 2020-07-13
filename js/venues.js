@@ -85,7 +85,7 @@ function distinguishVenuesInAR(venues) {
     var occluded = [];
 
     venues.forEach((venue) => {
-        var lineOfSight = turf.lineString([[lon, lat], venue.geometry.coordinates]);
+        var lineOfSight = turf.lineString([[lon, lat], [venue.location.lng, venue.location.lat]]);
         var isVisible = true;
 
         var intersect = turf.lineIntersect(lineOfSight, buildings);
