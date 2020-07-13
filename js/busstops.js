@@ -85,7 +85,7 @@ function displayBusStops(busStops) {
 function displayBusStopsInAR(busStops) {
     busStops.forEach((busStop) => {
         var lineOfSight = turf.lineString([[lon, lat], [busStop.geometry.coordinates]]);
-        console.log(lineOfSight);
+        console.log(JSON.stringify(lineOfSight));
     });
 
     displayVisibleBusStopsInAR(busStops);
