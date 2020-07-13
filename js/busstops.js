@@ -104,7 +104,7 @@ function distinguishBusStopsInAR(busStops) {
     });
 
     displayBusStopsInAR(visible, true);
-    displayBusStopsInAR(hidden, false);
+    displayBusStopsInAR(occluded, false);
 }
 
 function displayBusStopsInAR(busStops, isVisible) {
