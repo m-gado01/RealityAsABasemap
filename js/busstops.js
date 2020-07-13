@@ -90,13 +90,11 @@ function distinguishBusStopsInAR(busStops) {
         var lineOfSight = turf.lineString([[lon, lat], busStop.geometry.coordinates]);
         var isVisible = true;
 
-        buildings.features.forEach((building) => {
-            var intersect = turf.lineIntersect(lineOfSight, building);
+        var intersect = turf.lineIntersect(lineOfSight, buildings);
 
-            if (intersect.features.length > 0) {
-                isVisible = false;
-            }
-        });
+        if (intersect.features.length > 0) {
+            isVisible = false;
+        }
 
         if (!isVisible) {
             occluded.push(busStop);
