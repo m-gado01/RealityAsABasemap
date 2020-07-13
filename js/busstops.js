@@ -83,16 +83,32 @@ function displayBusStops(busStops) {
  * @param {GeoJSON} busStops - Nearby bus stops to visualize in AR
  */
 function displayBusStopsInAR(busStops) {
+    var visible = [];
+    var hidden = [];
+    console.log(busStops);
     busStops.forEach((busStop) => {
         var lineOfSight = turf.lineString([[lon, lat], busStop.geometry.coordinates]);
+        var isVisible = true;
 
         buildings.features.forEach((building) => {
             var intersect = turf.lineIntersect(lineOfSight, building);
-            console.log(JSON.stringify(intersect));
+
+            if (intersect.features.length > 0) {
+                isVisible = false;
+            }
         });
+
+        if (!isVisible) {
+            hidden.push(busStop);
+        } else {
+            visible.push(busStop);
+        }
     });
 
-    displayVisibleBusStopsInAR(busStops);
+    console.log(hidden);
+    console.log(visible);
+
+    //displayVisibleBusStopsInAR(busStops);
 }
 
 function displayVisibleBusStopsInAR(busStops) {
