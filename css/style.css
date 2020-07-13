@@ -1,26 +1,89 @@
+body {
+  margin : 0px;
+  overflow: hidden;
+}
+
 #map {
-  height: 100%;
-  width: 100%;
-  z-index: 1;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
 }
-#settings{
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
+
+#loadingScreen {
+    height: 100%;
+    width: 100%;
+    z-index: 2001;
+    background-color: rgb(14, 107, 231);
+    position: absolute;
+    text-align: center;
 }
-#checkboxSwitchView{
-   transform: scale(2);
+
+#loadingGif {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#settingsButton {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+#returnToPositionButton {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#checkboxSwitchView {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }
 #mapview{
   height: 100%;
   width: 100%;
   display:none;
 }
-#scene{
+
+#sceneview {
   height: 100%;
   width: 100%;
+  border-style: none;
+  border-color: green;
+  border-width: 25px;
 }
+#slider{
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  z-index: 2;
+}
+
+
+.ui-button {
+    border: none;
+    background-color: rgb(0, 191, 255);
+    background-color: rgba(0, 191, 255, 0.8);
+    outline: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+button:focus {
+    border: none;
+}
+
 .overlay {
   height: 100%;
   width: 0;
@@ -29,14 +92,14 @@
   top: 0;
   left: 0;
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
+  background-color: rgba(0,0,0, 0.8);
   overflow-x: hidden;
   transition: 0.5s;
 }
 
 .overlay-content {
   position: relative;
-  top: 25%;
+  top: 10%;
   width: 100%;
   text-align: center;
   margin-top: 30px;
@@ -57,8 +120,8 @@
 
 .overlay .closebtn {
   position: absolute;
-  top: 20px;
-  right: 45px;
+  top: 10px;
+  right: 20px;
   font-size: 60px;
 }
 
@@ -69,6 +132,10 @@
   top: 15px;
   right: 35px;
   }
+}
+
+label:hover{
+  color: white;
 }
 #showRadius{
   color: white;
@@ -87,6 +154,48 @@
   width: 50%;
 }
 
-#cursor {
-  color: black
+.collapsible {
+  background-color: rgba(0,0,0, 0);
+  cursor: pointer;
+  padding: 18px;
+  border: none;
+  outline: none;
+  font-size: 30px;
+  color: #818181;
+  transition: 0.3s;
+}
+
+.active, .collapsible:hover {
+  color: #f1f1f1;
+}
+
+.content {
+  background-color: rgba(0,0,0, 0);
+  color: #818181;
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}
+
+#busRouteInfoFrame {
+  width: 25%;
+  height: 10%;
+  background-color: green;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding-top: 10px;
+  visibility: hidden;
+}
+
+#busRouteInfo {
+  width: 50%;
+  color: white;
+  margin: auto;
+  text-align: center;
+  font-size: 1.5em;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+  border-radius: 10%;
 }

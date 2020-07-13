@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>GeoAR.js demo</title>
+  <title>Reality As A Basemap</title>
   <!-- Embedding external scripts -->
   <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
@@ -26,9 +26,15 @@
   <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
   <!-- Leaflet Extra Markers -->
   <script src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.2.1/dist/js/leaflet.extra-markers.min.js"></script>
+  <!-- Turf.js -->
+  <script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+  <!-- leaflet marker cluster -->
+  <link rel="stylesheet" href="js/dist/MarkerCluster.css">
+  </link>
+  <script src="js/dist/leaflet.markercluster-src.js"></script>
   <!-- Popup Generator -->
   <script src="js/popup-generator.js"></script>
-  <!-- Event Handler -->
+  <!-- Event Handler (A-Frame's registerComponent has to be called before the body is initialized!)-->
   <script src="js/eventhandler.js"></script>
   <!-- Embedding Stylesheets -->
   <!-- Bootstrap -->
@@ -46,47 +52,83 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body style="margin : 0px; overflow: hidden;">
-  <div class="container fixed-top justify-content-space-between" id="ui1">
-    <input type="checkbox" id="checkboxSwitchView">
-
-
+<body>
+  <!-- loading Screen -->
+  <div id="loadingScreen">
+    <img id="loadingGif" src="img/loader.gif"></img>
   </div>
-  <div id="mapview">
-    <div class="container fixed-bottom justify-content-center" id="ui2">
-      <button id="returnToPositionButton" onclick="map.locate({setView: true, maxZoom: 20})" type="button"><img
-          src="img/crosshairs-gps.png"></button>
-    </div>
-    <button id="settings" onclick="openNav()" type="button"><img src="img/cog-outline.png"></button>
-    <div id="myNav" class="overlay">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <div class="overlay-content">
-        <a href="#">Radius</a>
-        <input type="range" id="radius" name="radius" min="0" max="100" oninput="submitRadius()">
-        <p id="showRadiusP"><span id="showRadius">50</span> m</p>
+  <!-- Checkbox for locking the AR-View -->
+  <input type="checkbox" id="checkboxSwitchView">
+  <!-- Button for opening the settings menu -->
+  <button class="ui-button" id="settingsButton" onclick="openNav()" type="button"><img
+      src="img/cog-outline.png"></button>
+  <!-- Settings menu -->
+  <div id="myNav" class="overlay">
+    <!-- Button to close the menu -->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!-- Contents of the menu -->
+    <div id="menu" class="overlay-content">
+      <!-- Radius menu-->
+      <button type="button" class="collapsible">Change Radius</button>
+      <div class="content">
+        <input type="range" id="radius" name="radius" min="100" max="1000" oninput="submitRadius()">
+        <p id="showRadiusP"><span id="showRadius">500</span> m</p>
+        <input type="checkbox" id="radiusShown" onclick="toggleRadius()" name="radiusShown" checked="checked">
+        <label for="radiusShown"> Show Radius</label>
+      </div>
+      <!-- Layer Control menu -->
+      <button type="button" class="collapsible">Choose Features</button>
+      <div class="content">
+        <input type="checkbox" id="venues" onclick="toggleVenues()" name="Venues" checked="checked">
+        <label for="venues"> Venues</label><br>
+        <input type="checkbox" id="busstops" onclick="toggleBusStops()" name="BusStops" checked="checked">
+        <label for="busstops"> Bus Stops</label><br>
+        <input type="checkbox" id="buslines" onclick="toggleBusRoutes()" name="BusRoutes" checked="checked">
+        <label for="buslines"> Bus Routes</label><br>
+      </div>
+      <!-- Basemap Control menu -->
+      <button type="button" class="collapsible">Choose Basemap</button>
+      <div class="content">
+        <input type="radio" id="satellite" name="basemaps" onclick="switchBaselayer(this.value)" checked="checked"
+          value="satellite">
+        <label for="satellite">Satellite</label><br>
+        <input type="radio" id="topo" name="basemaps" onclick="switchBaselayer(this.value)" value="topo">
+        <label for="topo">Topographic</label><br>
       </div>
     </div>
+  </div>
+  <!-- Map View -->
+  <div id="mapview">
+    <button class="ui-button" id="returnToPositionButton" onclick="map.locate({setView: true, maxZoom: 20})"
+      type="button"><img src="img/crosshairs-gps.png"></button>
     <div id="map"></div>
   </div>
-  <div id="scene">
-    <a-scene vr-mode-ui="enabled: false" cursor="rayOrigin: mouse; fuse: true; fuseTimeout: 0;"
+  <!-- AR View -->
+  <div id="sceneview">
+    <a-scene id="scene" vr-mode-ui="enabled: false" cursor="rayOrigin: mouse; fuse: true; fuseTimeout: 0;"
       raycaster="objects: [clickhandler];" embedded arjs arjs="sourceType: webcam; debugUIEnabled: false;">
+      <!-- Infobox for the AR-Point-Features -->
       <div id="infobox" class="container fixed-top"></div>
-      <div id="dummerSlider" class="container fixed-bottom justify-content-center">
-        <!-- Range Slider -->
-        <input type="range" class="slider" id="slider"></input>
+      <!-- Infobox for the AR-Line-Features -->
+      <div id="busRouteInfoFrame">
+        <div id="busRouteInfo"></div>
       </div>
+      <!-- Slider for Zooming -->
+      <input type="range" class="slider" id="slider"></input>
+      <!-- A-Frame Camera and Cursor objects -->
       <a-camera gps-camera rotation-reader>
-        <a-cursor id="cursor"></a-cursor>
+        <a-cursor id="cursor" color="white"></a-cursor>
       </a-camera>
     </a-scene>
   </div>
 </body>
+<!-- Load scripts -->
 <script src="config/token.js"></script>
+<script src="config/settings.js"></script>
 <script src="js/leaflet-provider.js"></script>
-<script src="js/functions.js"></script>
+<script src="js/geolocator.js"></script>
 <script src="js/venues.js"></script>
-<script src="js/buslines.js"></script>
+<script src="js/busroutes.js"></script>
 <script src="js/busstops.js"></script>
 <script src="js/main.js"></script>
 

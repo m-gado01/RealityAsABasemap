@@ -1,64 +1,48 @@
 //Register the event handler for the bus stops. Show information within an infobox on hover.
-AFRAME.registerComponent('cursor_busstop', {
+AFRAME.registerComponent('cursoronbusstop', {
     init: function () {
-        var infobox = $('#infobox')[0];
-        var cursor = $('#cursor')[0];
-        this.el.addEventListener('mouseenter', (e) => {
-            infobox.innerHTML = generateBusStopInfobox(e.target);
-            $(cursor).attr('color', 'green');
-        });
+        let infobox = $('#infobox')[0];
+        let cursor = $('#cursor')[0];
+        let defaultColor = $(cursor).attr('color');
 
+        //If the cursor hovers over the element...
+        this.el.addEventListener('mouseenter', (e) => {
+            infobox.innerHTML = generateBusStopInfobox(e.target); //Draw the info to the infobox
+            $(cursor).attr('color', 'green'); //Switch the cursor color
+        });
+        //If the cursor leaves the element...
         this.el.addEventListener('mouseleave', () => {
-            infobox.innerHTML = "";
-            $(cursor).attr('color', 'black');
+            infobox.innerHTML = ""; //Clear the infobox
+            $(cursor).attr('color', defaultColor); //Set the cursor color to default
         });
     }
 });
 
 //Register the event handler for the venues. Show information within an infobox on hover.
-AFRAME.registerComponent('cursor_venue', {
+AFRAME.registerComponent('cursoronvenue', {
     init: function () {
-        var infobox = $('#infobox')[0];
-        this.el.addEventListener('mouseenter', (e) => {
-            infobox.innerHTML = generateVenueInfobox(e.target);
-            $(cursor).attr('color', 'yellow');
-        });
+        let infobox = $('#infobox')[0];
+        let cursor = $('#cursor')[0];
+        let defaultColor = $(cursor).attr('color');
 
+        //If the cursor hovers over the element...
+        this.el.addEventListener('mouseenter', (e) => {
+            infobox.innerHTML = generateVenueInfobox(e.target); //Draw the info to the infobox
+            $(cursor).attr('color', 'yellow'); //Switch the cursor color
+        });
+        //If the cursor leaves the element...
         this.el.addEventListener('mouseleave', () => {
-            infobox.innerHTML = "";
-            $(cursor).attr('color', 'black');
+            infobox.innerHTML = ""; //Clear the infobox
+            $(cursor).attr('color', defaultColor); //Set the cursor color to default
         });
     }
 });
 
-//Register the event handler for the bus lines. Show information within an infobox on hover.
-AFRAME.registerComponent('cursor_busline', {
-    init: function () {
-        var infobox = $('#infobox')[0];
-        this.el.addEventListener('mouseenter', (e) => {
-            var id = $(e.target).attr('id');
-            var direction = $(e.target).attr('direction');
-            var delay = $(e.target).attr('delay');
-            var lat = $(e.target).attr('lat');
-            var lon = $(e.target).attr('lon');
-
-            console.log(id, direction, delay);
-
-            infobox.innerHTML = '<i class="fas fa-star fa-3x"></i><br>'
-                + id + '<br><br>'
-                + '<i class="fas fa-map-signs fa-2x"></i>'
-                + direction + '<br>'
-                + '<i class="far fa-clock fa-2x"></i>'
-                + delay + '<br>'
-                + '<a class="btn btn-success" href="#" onclick="navigate(' + lat + ', ' + lon + ')"><i class="fas fa-crosshairs"></i> Navigate</a>';
-        });
-
-        this.el.addEventListener('mouseleave', () => {
-            infobox.innerHTML = "";
-        });
-    }
-});
-
+/**
+ * Navigation feature to be implemented.
+ * @param {*} lat 
+ * @param {*} lon 
+ */
 function navigate(lat, lon) {
     alert('Navigation not implemented yet.');
 }
